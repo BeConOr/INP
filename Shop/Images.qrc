@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/Delete.png</file>
+        <file>Images/Enlarge.png</file>
+        <file>Images/ShopDB.db</file>
+        <file>Images/More.png</file>
+        <file>Images/Edit.png</file>
+    </qresource>
+</RCC>
