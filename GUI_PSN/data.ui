@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Data</class>
+ <widget class="QDialog" name="Data">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>334</width>
+    <height>484</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Parameters</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinimumSize</enum>
+     </property>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="LTaskT">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Task Type</string>
+         </property>
+         <property name="buddy">
+          <cstring>TypeTask</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="TypeTask">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="LGeomT">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Geometry</string>
+         </property>
+         <property name="buddy">
+          <cstring>GeomT</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="GeomT">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="LStreamL">
+         <property name="text">
+          <string>Stream Lines</string>
+         </property>
+         <property name="buddy">
+          <cstring>StreamL</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="StreamL"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_16">
+       <item>
+        <widget class="QLabel" name="LMeshQ">
+         <property name="text">
+          <string>Mesh Array Q</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="MeshQ">
+         <property name="text">
+          <string>No</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_17">
+       <item>
+        <widget class="QLabel" name="LMeshE">
+         <property name="text">
+          <string>Mesh Array E</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="MeshE">
+         <property name="text">
+          <string>No</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_18">
+       <item>
+        <widget class="QLabel" name="LMeshH">
+         <property name="text">
+          <string>Mesh Array H</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="MeshH">
+         <property name="text">
+          <string>No</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
+       <item>
+        <widget class="QLabel" name="LMatrix">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Program &quot;Matrix&quot;</string>
+         </property>
+         <property name="buddy">
+          <cstring>Matrix</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="Matrix">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="LField">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Program &quot;Field&quot;</string>
+         </property>
+         <property name="buddy">
+          <cstring>Field</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="Field">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_9">
+       <item>
+        <widget class="QLabel" name="LTrace">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Program &quot;Trace&quot;</string>
+         </property>
+         <property name="buddy">
+          <cstring>Trace</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="Trace">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <widget class="QLabel" name="LStep">
+         <property name="text">
+          <string>Step (Equ Int)</string>
+         </property>
+         <property name="buddy">
+          <cstring>StreamL</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="Step">
+         <property name="stepType">
+          <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+         </property>
+         <property name="value">
+          <double>0.500000000000000</double>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_10">
+       <item>
+        <widget class="QLabel" name="LNumb">
+         <property name="text">
+          <string>Numb Equi</string>
+         </property>
+         <property name="buddy">
+          <cstring>StreamL</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="Numb"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_11">
+       <item>
+        <widget class="QLabel" name="LUmin">
+         <property name="text">
+          <string>U min</string>
+         </property>
+         <property name="buddy">
+          <cstring>StreamL</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="Umin">
+         <property name="minimum">
+          <double>-10000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>10000.000000000000000</double>
+         </property>
+         <property name="stepType">
+          <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_13">
+       <item>
+        <widget class="QLabel" name="LUmax">
+         <property name="text">
+          <string>U max</string>
+         </property>
+         <property name="buddy">
+          <cstring>StreamL</cstring>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="Umax">
+         <property name="minimum">
+          <double>-10000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>10000.000000000000000</double>
+         </property>
+         <property name="stepType">
+          <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_14">
+       <item>
+        <widget class="QLabel" name="LCorr">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Corr Values</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="Corr">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_15">
+       <item>
+        <widget class="QPushButton" name="Ok_butt">
+         <property name="text">
+          <string>Ok</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Cancel_butt">
+         <property name="text">
+          <string>Cancel</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>Ok_butt</sender>
+   <signal>clicked()</signal>
+   <receiver>Data</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>459</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>40</x>
+     <y>473</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Cancel_butt</sender>
+   <signal>clicked()</signal>
+   <receiver>Data</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>240</x>
+     <y>464</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>323</x>
+     <y>436</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

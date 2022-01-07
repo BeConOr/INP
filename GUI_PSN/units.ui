@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Units</class>
+ <widget class="QDialog" name="Units">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>264</width>
+    <height>283</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Units</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>2</y>
+     <width>241</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="LLength">
+        <property name="text">
+         <string>Length</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="Length"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="LPot">
+        <property name="text">
+         <string>Potential</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="Pot"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="LMagInd">
+        <property name="text">
+         <string>Magnetic Induction</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="MagInd"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="LTime">
+        <property name="text">
+         <string>Time</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="Time"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLabel" name="LCurr">
+        <property name="text">
+         <string>Current Density</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="Curr"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <widget class="QLabel" name="LChar">
+        <property name="text">
+         <string>Charge</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="Char"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
+      <item>
+       <widget class="QLabel" name="LCond">
+        <property name="text">
+         <string>Conductivity</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="Cond"/>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QDialogButtonBox" name="buttonBox">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="standardButtons">
+       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      </property>
+      <property name="centerButtons">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Units</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>249</x>
+     <y>271</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>263</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Units</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

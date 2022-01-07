@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Mesh</class>
+ <widget class="QDialog" name="Mesh">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>335</width>
+    <height>72</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Mesh size</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="mesh_size">
+       <property name="decimals">
+        <number>5</number>
+       </property>
+       <property name="maximum">
+        <double>1000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.001000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="OK_butt">
+       <property name="text">
+        <string>OK</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Canc_butt">
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>OK_butt</sender>
+   <signal>clicked()</signal>
+   <receiver>Mesh</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>54</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>64</x>
+     <y>36</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Canc_butt</sender>
+   <signal>clicked()</signal>
+   <receiver>Mesh</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>33</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
