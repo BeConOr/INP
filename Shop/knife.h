@@ -23,6 +23,7 @@ private:
     void loadFile(const QString &fileName);
 
     QByteArray inByteArray;
+    QByteArray lowByteArray;
     DataBase *db;
     QString fileName;
     int kid;

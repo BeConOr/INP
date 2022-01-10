@@ -29,8 +29,8 @@ struct Kn{
 struct Co{
     int id;
     QString rus;
-    QString imgName;
-    QByteArray img;
+//    QString imgName;
+//    QByteArray img;
     int number;
 };
 
@@ -47,6 +47,7 @@ public:
     QList<Co> selectColor();
     QList<Kn> selectKnife();
     Kn selectK(int id);
+    QByteArray getLowKnife(int id);
     void deleteKn(int id);
     void deleteCo(int id);
     bool updateKnife(const QVariantList &data, int id);

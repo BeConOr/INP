@@ -80,17 +80,15 @@ void MainWindow::setKnifeList(){
 //    ui->KnifeScroll->findChild<QGridLayout *>()->deleteLater();
     QList<Kn> knifes = db->selectKnife();
     QList<Co> colors = db->selectColor();
-    if(knifes[0].id != 0){
-        QWidget *w = new QWidget(ui->KnifeScroll);
-        ui->KnifeScroll->setWidget(w);
-        QGridLayout *vbox = new QGridLayout(w);
-        w->setLayout(vbox);
-        for(int i = 0; i < qCeil((double)knifes.count()/3.0); ++i){
-            for(int j = 0; j < 3; ++j){
-                if((3*i+j) < knifes.count()){
-                    KnifeForm *form = new KnifeForm(dbname, knifes[3*i+j], colors, ui->KnifeScroll);
-                    vbox->addWidget(form, i, j);
-                }
+    QWidget *w = new QWidget(ui->KnifeScroll);
+    ui->KnifeScroll->setWidget(w);
+    QGridLayout *vbox = new QGridLayout(w);
+    w->setLayout(vbox);
+    for(int i = 0; i < qCeil((double)knifes.count()/3.0); ++i){
+        for(int j = 0; j < 3; ++j){
+            if((3*i+j) < knifes.count()){
+                KnifeForm *form = new KnifeForm(dbname, knifes[3*i+j], colors, ui->KnifeScroll);
+                vbox->addWidget(form, i, j);
             }
         }
     }
@@ -109,15 +107,13 @@ void MainWindow::setColorList(){
     }
 //    ui->ColorScroll->findChild<QVBoxLayout *>()->deleteLater();
     QList<Co> colors = db->selectColor();
-    if(colors[0].id != 0){
-        QWidget *w = new QWidget(ui->ColorScroll);
-        ui->ColorScroll->setWidget(w);
-        QVBoxLayout *vbox = new QVBoxLayout(w);
-        w->setLayout(vbox);
-        for(int i = 0; i < colors.count(); ++i){
-            ColorForm *form = new ColorForm(dbname, colors[i], ui->ColorScroll);
-            vbox->addWidget(form);
-        }
+    QWidget *w = new QWidget(ui->ColorScroll);
+    ui->ColorScroll->setWidget(w);
+    QVBoxLayout *vbox = new QVBoxLayout(w);
+    w->setLayout(vbox);
+    for(int i = 0; i < colors.count(); ++i){
+        ColorForm *form = new ColorForm(dbname, colors[i], ui->ColorScroll);
+        vbox->addWidget(form);
     }
 }
 

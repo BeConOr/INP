@@ -61,7 +61,11 @@ void Knife::loadFile(const QString &fileName)
     QBuffer inBuffer(&inByteArray);                   // Сохранение изображения производим через буффер
     inBuffer.open( QIODevice::WriteOnly );              // Открываем буффер
     inPixmap.save(&inBuffer, res.toLatin1());
+    QPixmap lowPixmap = inPixmap.scaled(QSize(200, 200), Qt::KeepAspectRatio);
     ui->Image_place->setPixmap(inPixmap.scaled(QSize(100, 100), Qt::KeepAspectRatio));
+    QBuffer lowBuffer(&lowByteArray);
+    lowBuffer.open( QIODevice::WriteOnly );
+    lowPixmap.save(&lowBuffer, res.toLatin1());
 }
 
 void Knife::open()
@@ -92,10 +96,11 @@ void Knife::OK_slot(){
     }
     data.append(colA);
     data.append(cosA);
-    data.append(fileName.mid(fileName.lastIndexOf(QString("//"))+1));
+    data.append(fileName.mid(fileName.lastIndexOf(QString("/"))+1));
     data.append(inByteArray);
     data.append(ui->doubleSpinBox->value());
     data.append(ui->KnifeCheck->isChecked());
+    data.append(lowByteArray);
 
     if(kid == 0){
         db->insertIntoKnife(data);
@@ -128,24 +133,22 @@ void Knife::check(){
     if(ui->checkBox->isChecked()){
         ui->scrollArea->show();
         QList<Co> colors = db->selectColor();
-        if(colors[0].id != 0){
-            QWidget *w = new QWidget(ui->scrollArea);
-            ui->scrollArea->setWidget(w);
-            QVBoxLayout *vbox = new QVBoxLayout(w);
-            w->setLayout(vbox);
-            for(int i = 0; i < colors.count(); ++i){
-                High_cost *color_pan = new High_cost(colors[i].rus + QString(" (%1)").arg(colors[i].number), ui->scrollArea);
-    //            QHBoxLayout *color_pan = new QHBoxLayout(ui->listWidget);
-    //            color_pan->setSpacing(1);
-    //            QCheckBox *check_color = new QCheckBox(QString(""), ui->listWidget);
-    //            QLabel *name_col = new QLabel(colors[i].rus, ui->listWidget);
-    //            QDoubleSpinBox *cos_col = new QDoubleSpinBox(ui->listWidget);
-    //            cos_col->setMaximum(10000.0);
-    //            color_pan->addWidget(check_color);
-    //            color_pan->addWidget(name_col);
-    //            color_pan->addWidget(cos_col);
-                vbox->addWidget(color_pan);
-            }
+        QWidget *w = new QWidget(ui->scrollArea);
+        ui->scrollArea->setWidget(w);
+        QVBoxLayout *vbox = new QVBoxLayout(w);
+        w->setLayout(vbox);
+        for(int i = 0; i < colors.count(); ++i){
+            High_cost *color_pan = new High_cost(colors[i].rus + QString(" (%1)").arg(colors[i].number), ui->scrollArea);
+//            QHBoxLayout *color_pan = new QHBoxLayout(ui->listWidget);
+//            color_pan->setSpacing(1);
+//            QCheckBox *check_color = new QCheckBox(QString(""), ui->listWidget);
+//            QLabel *name_col = new QLabel(colors[i].rus, ui->listWidget);
+//            QDoubleSpinBox *cos_col = new QDoubleSpinBox(ui->listWidget);
+//            cos_col->setMaximum(10000.0);
+//            color_pan->addWidget(check_color);
+//            color_pan->addWidget(name_col);
+//            color_pan->addWidget(cos_col);
+            vbox->addWidget(color_pan);
         }
     }else{
         ui->scrollArea->hide();
@@ -166,21 +169,20 @@ void Knife::check(){
 void Knife::set(QStringList names, QStringList costs){
     ui->scrollArea->show();
     QList<Co> colors = db->selectColor();
-    if(colors[0].id != 0){
-        QWidget *w = new QWidget(ui->scrollArea);
-        ui->scrollArea->setWidget(w);
-        QVBoxLayout *vbox = new QVBoxLayout(w);
-        w->setLayout(vbox);
-        for(int i = 0; i < colors.count(); ++i){
-            double cost = 0.0;
-            for(int i = 0; i < names.count()-1; ++i){
-                QString name = colors[i].rus + QString(" (%1)").arg(colors[i].number);
-                if(name == names[i]){
-                    cost = costs[i].toDouble();
-                    break;
-                }
+    QWidget *w = new QWidget(ui->scrollArea);
+    ui->scrollArea->setWidget(w);
+    QVBoxLayout *vbox = new QVBoxLayout(w);
+    w->setLayout(vbox);
+    for(int i = 0; i < colors.count(); ++i){
+        double cost = 0.0;
+        for(int i = 0; i < names.count()-1; ++i){
+            QString name = colors[i].rus + QString(" (%1)").arg(colors[i].number);
+            if(name == names[i]){
+                cost = costs[i].toDouble();
+                break;
             }
-            High_cost *color_pan = new High_cost(colors[i].rus + QString(" (%1)").arg(colors[i].number), ui->scrollArea, cost);
+        }
+        High_cost *color_pan = new High_cost(colors[i].rus + QString(" (%1)").arg(colors[i].number), ui->scrollArea, cost);
 //            QHBoxLayout *color_pan = new QHBoxLayout(ui->listWidget);
 //            color_pan->setSpacing(1);
 //            QCheckBox *check_color = new QCheckBox(QString(""), ui->listWidget);
@@ -190,8 +192,7 @@ void Knife::set(QStringList names, QStringList costs){
 //            color_pan->addWidget(check_color);
 //            color_pan->addWidget(name_col);
 //            color_pan->addWidget(cos_col);
-            vbox->addWidget(color_pan);
-        }
+        vbox->addWidget(color_pan);
     }
 }
 

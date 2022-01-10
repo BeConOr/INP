@@ -99,6 +99,7 @@ bool DataBase::createTableK()
                        "'Knife_image'	BLOB NOT NULL, "
                        "'Cost'	REAL NOT NULL DEFAULT 0.0, "
                        "'isKnife'	INTEGER NOT NULL DEFAULT 1, "
+                       "'Low_image'	BLOB, "
                        "PRIMARY KEY('Knife_id' AUTOINCREMENT)"
                    " )")){
         qDebug() << "DataBase: error of create " << KNIFE_TABLE;
@@ -146,8 +147,8 @@ bool DataBase::insertIntoKnife(const QVariantList &data)
      * которые потом связываются методом bindValue
      * для подстановки данных из QVariantList
      * */
-    query.prepare("INSERT INTO " KNIFE_TABLE " ('Knife_name_RUS', 'Knife_name_ENG', 'Exp_color_name', 'Exp_color_cost', 'Knife_image_name', 'Knife_image', 'Cost', 'isKnife') "
-                  "VALUES (:RUS, :ENG, :Col_name, :Col_cost, :Name, :Image, :Cost, :isKnife)");
+    query.prepare("INSERT INTO " KNIFE_TABLE " ('Knife_name_RUS', 'Knife_name_ENG', 'Exp_color_name', 'Exp_color_cost', 'Knife_image_name', 'Knife_image', 'Cost', 'isKnife', 'Low_image') "
+                  "VALUES (:RUS, :ENG, :Col_name, :Col_cost, :Name, :Image, :Cost, :isKnife, :Low)");
     query.bindValue(":RUS",        data[0].toString());
     query.bindValue(":ENG",        data[1].toString());
     query.bindValue(":Col_name",      data[2].toString());
@@ -156,6 +157,7 @@ bool DataBase::insertIntoKnife(const QVariantList &data)
     query.bindValue(":Image",      data[5].toByteArray());
     query.bindValue(":Cost",      data[6].toDouble());
     query.bindValue(":isKnife",      data[7].toInt());
+    query.bindValue(":Low",      data[8].toByteArray());
     // После чего выполняется запросом методом exec()
     if(!query.exec()){
         qDebug() << "error insert into " << KNIFE_TABLE;
@@ -170,22 +172,18 @@ bool DataBase::insertIntoKnife(const QVariantList &data)
 QList<Co> DataBase::selectColor(){
     QSqlQuery query(db);
     QList<Co> record;
-    if(!query.exec("SELECT Color_id, Color_name, Image_name, Image, Number FROM " COLOR_TABLE)){
+    if(!query.exec("SELECT Color_id, Color_name, Number FROM " COLOR_TABLE)){
         qDebug() << "DataBase: error of select from " << COLOR_TABLE;
         qDebug() << query.lastError().text();
     }
-    while(query.next()){
-        if(query.value(0) != 0){
+    if(query.size() != 0){
+        while(query.next()){
             Co data;
             data.id = query.value(0).toInt();
             data.rus = query.value(1).toString();
-            data.imgName = query.value(2).toString();
-            data.img = query.value(3).toByteArray();
-            data.number = query.value(4).toInt();
-            record.append(data);
-        }else{
-            Co data;
-            data.id = query.value(0).toInt();
+//            data.imgName = query.value(2).toString();
+//            data.img = query.value(3).toByteArray();
+            data.number = query.value(2).toInt();
             record.append(data);
         }
     }
@@ -195,12 +193,12 @@ QList<Co> DataBase::selectColor(){
 QList<Kn> DataBase::selectKnife(){
     QSqlQuery query(db);
     QList<Kn> record;
-    if(!query.exec("SELECT Knife_id, Knife_name_RUS, Knife_name_ENG, Exp_color_name, Exp_color_cost, Knife_image_name, Knife_image, Cost, isKnife FROM " KNIFE_TABLE)){
+    if(!query.exec("SELECT Knife_id, Knife_name_RUS, Knife_name_ENG, Exp_color_name, Exp_color_cost, Knife_image_name, Low_image, Cost, isKnife FROM " KNIFE_TABLE)){
         qDebug() << "DataBase: error of select from " << KNIFE_TABLE;
         qDebug() << query.lastError().text();
     }
-    while(query.next()){
-        if(query.value(0) != 0){
+    if(query.size() != 0){
+        while(query.next()){
             Kn data;
             data.id = query.value(0).toInt();
             data.rus = query.value(1).toString();
@@ -211,10 +209,6 @@ QList<Kn> DataBase::selectKnife(){
             data.img = query.value(6).toByteArray();
             data.cost = query.value(7).toDouble();
             data.isKnife = query.value(8).toInt();
-            record.append(data);
-        }else{
-            Kn data;
-            data.id = query.value(0).toInt();
             record.append(data);
         }
     }
@@ -247,7 +241,7 @@ void DataBase::deleteCo(int id){
 
 Kn DataBase::selectK(int id){
     QSqlQuery query(db);
-    query.prepare("SELECT Knife_id, Knife_name_RUS, Knife_name_ENG, Exp_color_name, Exp_color_cost, Knife_image_name, Knife_image, Cost, isKnife FROM " KNIFE_TABLE " WHERE Knife_id = :id");
+    query.prepare("SELECT Knife_id, Knife_name_RUS, Knife_name_ENG, Exp_color_name, Exp_color_cost, Knife_image_name, Low_image, Cost, isKnife FROM " KNIFE_TABLE " WHERE Knife_id = :id");
     query.bindValue(":id" ,id);
     if(!query.exec()){
         qDebug() << "DataBase: error of select from " << KNIFE_TABLE;
@@ -277,7 +271,7 @@ bool DataBase::updateKnife(const QVariantList &data, int id)
      * которые потом связываются методом bindValue
      * для подстановки данных из QVariantList
      * */
-    query.prepare("UPDATE " KNIFE_TABLE " SET Knife_name_RUS = ?, Knife_name_ENG = ?, Exp_color_name = ?, Exp_color_cost = ?, Knife_image_name = ?, Knife_image = ?, Cost = ?, isKnife = ? "
+    query.prepare("UPDATE " KNIFE_TABLE " SET Knife_name_RUS = ?, Knife_name_ENG = ?, Exp_color_name = ?, Exp_color_cost = ?, Knife_image_name = ?, Knife_image = ?, Cost = ?, isKnife = ?, Low_image = ? "
                   "WHERE Knife_id = ?");
     query.addBindValue(data[0].toString());
     query.addBindValue(data[1].toString());
@@ -287,6 +281,7 @@ bool DataBase::updateKnife(const QVariantList &data, int id)
     query.addBindValue(data[5].toByteArray());
     query.addBindValue(data[6].toDouble());
     query.addBindValue(data[7].toInt());
+    query.addBindValue(data[8].toByteArray());
     query.addBindValue(id);
     // После чего выполняется запросом методом exec()
     if(!query.exec()){
@@ -297,4 +292,20 @@ bool DataBase::updateKnife(const QVariantList &data, int id)
         return true;
     }
     return false;
+}
+
+QByteArray DataBase::getLowKnife(int id){
+    QSqlQuery query(db);
+    query.prepare("SELECT Knife_image FROM " KNIFE_TABLE " WHERE Knife_id = :id");
+    query.bindValue(":id" ,id);
+    if(!query.exec()){
+        qDebug() << "DataBase: error of select from " << KNIFE_TABLE;
+        qDebug() << query.lastError().text();
+    }
+    if(query.size() != 0){
+        query.next();
+        return query.value(0).toByteArray();
+    }else{
+        return QByteArray();
+    }
 }

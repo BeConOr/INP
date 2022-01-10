@@ -15,9 +15,9 @@ ColorForm::ColorForm(QString dbname, Co inf, QWidget *parent) :
 
     ui->Name->setText(inform.rus);
     ui->Number->setText(QString("%1").arg(inform.number));
-    QPixmap inPixmap;
-    inPixmap.loadFromData(inform.img,inform.imgName.mid(inform.imgName.lastIndexOf('.')).toLatin1());
-    ui->Image_place->setPixmap(inPixmap.scaled(QSize(300, 300), Qt::KeepAspectRatio));
+//    QPixmap inPixmap;
+//    inPixmap.loadFromData(inform.img,inform.imgName.mid(inform.imgName.lastIndexOf('.')).toLatin1());
+//    ui->Image_place->setPixmap(inPixmap.scaled(QSize(300, 300), Qt::KeepAspectRatio));
 
     connect(ui->DeleteBTN, &QPushButton::clicked, this, &ColorForm::deleteBTN);
     connect(ui->EnlargeBTN, &QPushButton::clicked, this, &ColorForm::enlargeBTN);
@@ -42,8 +42,8 @@ void ColorForm::enlargeBTN(){
     dial->setLayout(vbox);
     dial->setWindowTitle(inform.rus);
     vbox->addWidget(imgPlace);
-    QPixmap inPixmap;
-    inPixmap.loadFromData(inform.img,inform.imgName.mid(inform.imgName.lastIndexOf('.')).toLatin1());
-    imgPlace->setPixmap(inPixmap.scaled(QSize(600, 600), Qt::KeepAspectRatio));
+//    QPixmap inPixmap;
+//    inPixmap.loadFromData(inform.img,inform.imgName.mid(inform.imgName.lastIndexOf('.')).toLatin1());
+//    imgPlace->setPixmap(inPixmap.scaled(QSize(600, 600), Qt::KeepAspectRatio));
     dial->exec();
 }

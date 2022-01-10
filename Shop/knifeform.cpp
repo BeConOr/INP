@@ -39,15 +39,13 @@ KnifeForm::KnifeForm(QString dbname, Kn inf, QList<Co> colors, QWidget *parent) 
 //        ui->Numbers->hide();
 //        ui->scrollArea->show();
 //        QList<Co> colors = db->selectColor();
-        if(colors[0].id != 0){
-            QWidget *w = new QWidget(ui->scrollArea);
-            ui->scrollArea->setWidget(w);
-            QVBoxLayout *vbox = new QVBoxLayout(w);
-            w->setLayout(vbox);
-            for(int i = 0; i < colors.count(); ++i){
-                ColNumber *color_pan = new ColNumber(colors[i].rus, colors[i].number, ui->scrollArea);
-                vbox->addWidget(color_pan);
-            }
+        QWidget *w = new QWidget(ui->scrollArea);
+        ui->scrollArea->setWidget(w);
+        QVBoxLayout *vbox = new QVBoxLayout(w);
+        w->setLayout(vbox);
+        for(int i = 0; i < colors.count(); ++i){
+            ColNumber *color_pan = new ColNumber(colors[i].rus, colors[i].number, ui->scrollArea);
+            vbox->addWidget(color_pan);
         }
     }else{
 //        ui->Numbers->show();
@@ -79,16 +77,20 @@ void KnifeForm::deleteBTN(){
 }
 
 void KnifeForm::enlargeBTN(){
-    QDialog *dial = new QDialog(this);
-    QLabel *imgPlace = new QLabel();
-    QVBoxLayout *vbox = new QVBoxLayout();
-    dial->setLayout(vbox);
-    dial->setWindowTitle(inform.rus);
-    vbox->addWidget(imgPlace);
-    QPixmap inPixmap;
-    inPixmap.loadFromData(inform.img,inform.imgName.mid(inform.imgName.lastIndexOf('.')).toLatin1());
-    imgPlace->setPixmap(inPixmap.scaled(QSize(600, 600), Qt::KeepAspectRatio));
-    dial->exec();
+    db->connectToDataBase();
+    QByteArray img = db->getLowKnife(inform.id);
+    if(!img.isNull()){
+        QDialog *dial = new QDialog(this);
+        QLabel *imgPlace = new QLabel();
+        QVBoxLayout *vbox = new QVBoxLayout();
+        dial->setLayout(vbox);
+        dial->setWindowTitle(inform.rus);
+        vbox->addWidget(imgPlace);
+        QPixmap inPixmap;
+        inPixmap.loadFromData(img,inform.imgName.mid(inform.imgName.lastIndexOf('.')).toLatin1());
+        imgPlace->setPixmap(inPixmap.scaled(QSize(600, 600), Qt::KeepAspectRatio));
+        dial->exec();
+    }
 }
 
 QVariantList KnifeForm::recieveInf(bool engFlag){
