@@ -19,6 +19,7 @@ private:
     Ui::Order *ui;
 private slots:
     void copy();
+    void saveBTN();
 };
 
 #endif // ORDER_H

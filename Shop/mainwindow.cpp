@@ -157,18 +157,6 @@ void MainWindow::createOrder(){
             all += QString("Total: $%1").arg(cost/ui->DolCost->value());
         }
 
-        QFileDialog dialog(this, tr("Open File"), "/Заказ", tr("Work file (*.txt)"));
-        dialog.setWindowModality(Qt::WindowModal);
-        dialog.setAcceptMode(QFileDialog::AcceptSave);
-        if (dialog.exec() == QDialog::Accepted){
-            QString fName = dialog.selectedFiles().first();
-            QString fileN = fName.mid(0, fName.indexOf(".", 0));
-            QFile file(fileN + ".txt");
-            file.open(QFile::WriteOnly | QFile::Text);
-            QTextStream out(&file);
-            out << all;
-            file.close();
-        }
         Order *dial = new Order(all, this);
         dial->exec();
     }
