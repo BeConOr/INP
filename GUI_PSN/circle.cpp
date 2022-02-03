@@ -74,4 +74,8 @@ void Circle::updateRomb()
     qreal radius = qSqrt(x*x+y*y);
     qDebug() << radius;
     this->update(startPoint().x()-radius, startPoint().y()-radius, startPoint().x()+radius, startPoint().y()+radius);
+    paramValue[0] = radius;
+    paramValue[2] = radius;
+    paramValue[1] = startPoint().x();
+    paramValue[3] = startPoint().y();
 }

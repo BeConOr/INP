@@ -75,4 +75,8 @@ void Ellips::updateRomb()
     //qreal radius = qSqrt(x*x+y*y);
     //qDebug() << radius;
     this->update(startPoint().x()-x, startPoint().y()-y, startPoint().x()+x, startPoint().y()+y);
+    paramValue[0] = (double)x;
+    paramValue[2] = (double)y;
+    paramValue[1] = startPoint().x();
+    paramValue[3] = startPoint().y();
 }

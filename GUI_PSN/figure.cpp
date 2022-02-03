@@ -39,6 +39,10 @@ void Figure::updateRomb()
                  (endPoint().y() > startPoint().y() ? startPoint().y() : endPoint().y()) - 5,
                  qAbs(endPoint().x() - startPoint().x()) + 10,
                  qAbs(endPoint().y() - startPoint().y()) + 10);
+    paramValue[1] = endPoint().y();
+    paramValue[3] = endPoint().x();
+    paramValue[0] = startPoint().y();
+    paramValue[2] = startPoint().x();
 }
 
 void Figure::setStartPoint(const QPointF point)

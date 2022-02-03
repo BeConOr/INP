@@ -555,6 +555,7 @@ void MainWindow::fieldFileWrite(){
         fileTXT.open(QFile::WriteOnly | QFile::Text);
         QTextStream outTXT(&fileTXT);
         QDataStream out(&file);
+        out.setByteOrder(QDataStream::LittleEndian);
         out << 4000 << 4000;
         outTXT << 4000 << "\n" <<4000 << "\n";
         int mesh_number = 1;
@@ -643,184 +644,86 @@ void MainWindow::fieldFileWrite(){
         fileGeoTXT.open(QFile::WriteOnly | QFile::Text);
         QDataStream out(&fileGeo);
         QTextStream outTXT(&fileGeoTXT);
-//        char *int_val = new char[4];
-//        char *flo_val = new char[8];
-//        std::sprintf(int_val, "%d", figureList.size());
-//        out.writeRawData(int_val, 4);
-//        outTXT << (int)figureList.length() << "\n";
-//        std::sprintf(int_val, "%d", 0);
-//        out.writeRawData(int_val, 4);
-//        std::sprintf(int_val, "%d", 0);
-//        out.writeRawData(int_val, 4);
-////        out << (qint32)stData.geomT;
-//        std::sprintf(int_val, "%d", stData.geomT);
-//        out.writeRawData(int_val, 4);
-//        outTXT << 0 << "\n";
-//        outTXT << 0 << "\n";
-//        outTXT << stData.geomT << "\n";
-//        std::sprintf(flo_val, "%f", 0.0);
-//        out.writeRawData(flo_val, 8);
-//        std::sprintf(flo_val, "%f", 0.0);
-//        out.writeRawData(flo_val, 8);
-//        std::sprintf(int_val, "%d", (figureList.length()*14));
-//        out.writeRawData(int_val, 4);
-//        outTXT << (float)0.0 << "\n";
-//        outTXT << (float)0.0 << "\n";
-//        outTXT << (int)figureList.count()*14 << "\n";
-//        foreach(Figure *fig, figureList){
-//           std::sprintf(int_val, "%d", 6);
-//           out.writeRawData(int_val, 4);
-//           outTXT << 6 << "\n";
-//        }
-//        foreach(Figure *fig, figureList){
-//           std::sprintf(int_val, "%d", 20);
-//           out.writeRawData(int_val, 4);
-//           outTXT << 20 << "\n";
-//        }
-//        foreach(Figure *fig, figureList){
-//           std::sprintf(int_val, "%d", fig->getBound().type);
-//           out.writeRawData(int_val, 4);
-//           outTXT << fig->getBound().type << "\n";
-//        }
-//        for(int i = 0; i < 4; ++i){
-//           double* coef;
-//           foreach(Figure *fig, figureList){
-//                coef = fig->getCoeff();
-//                std::sprintf(flo_val, "%f", (float)coef[i]);
-//                out.writeRawData(flo_val, 8);
-//                outTXT << coef[i] << "\n";
-//           }
-//        }
-//        foreach(Figure *fig, figureList){
-//            std::sprintf(flo_val, "%f", (float)0.0);
-//            out.writeRawData(flo_val, 8);
-//            outTXT << 0.0 << "\n";
-//        }
-//        foreach(Figure *fig, figureList){
-//            std::sprintf(flo_val, "%f", (float)1.0);
-//            out.writeRawData(flo_val, 8);
-//            outTXT << 1.0 << "\n";
-//        }
-//        foreach(Figure *fig, figureList){
-//            std::sprintf(flo_val, "%f", (float)0.0);
-//            out.writeRawData(flo_val, 8);
-//            outTXT << 0.0 << "\n";
-//        }
-//        foreach(Figure *fig, figureList){
-//            std::sprintf(flo_val, "%f", (float)0.0);
-//            out.writeRawData(flo_val, 8);
-//            outTXT << 0.0 << "\n";
-//        }
-//        foreach(Figure *fig, figureList){
-//            std::sprintf(flo_val, "%f", (float)fig->getBound().value[0]);
-//            out.writeRawData(flo_val, 8);
-//            outTXT << fig->getBound().value[0] << "\n";
-//        }
-//        foreach(Figure *fig, figureList){
-//            if(fig->getBound().method){
-//                std::sprintf(flo_val, "%f", (float)fig->getBound().value[1]);
-//                out.writeRawData(flo_val, 8);
-//                outTXT << fig->getBound().value[1] << "\n";
-//            }else{
-//                std::sprintf(flo_val, "%f", (float)fig->getBound().value[0]);
-//                out.writeRawData(flo_val, 8);
-//                outTXT << fig->getBound().value[0] << "\n";
-//            }
-//        }
-//        foreach(Figure *fig, figureList){
-//           std::sprintf(int_val, "%d", 2);
-//           out.writeRawData(int_val, 4);
-//           outTXT << 2 << "\n";
-//        }
-                char *int_val = new char[4];
-                char *flo_val = new char[8];
-                std::sprintf(int_val, "%d", figureList.size());
-                chWr(&out, int_val, 4);
-                outTXT << (int)figureList.length() << "\n";
-                std::sprintf(int_val, "%d", 0);
-                chWr(&out, int_val, 4);
-                std::sprintf(int_val, "%d", 0);
-                chWr(&out, int_val, 4);
-        //        out << (qint32)stData.geomT;
-                std::sprintf(int_val, "%d", stData.geomT);
-                chWr(&out, int_val, 4);
-                outTXT << 0 << "\n";
-                outTXT << 0 << "\n";
-                outTXT << stData.geomT << "\n";
-                std::sprintf(flo_val, "%f", 0.0);
-                chWr(&out, flo_val, 4);
-                std::sprintf(flo_val, "%f", 0.0);
-                chWr(&out, flo_val, 4);
-                std::sprintf(int_val, "%d", (figureList.length()*14));
-                chWr(&out, int_val, 4);
-                outTXT << (float)0.0 << "\n";
-                outTXT << (float)0.0 << "\n";
-                outTXT << (int)figureList.count()*14 << "\n";
-                foreach(Figure *fig, figureList){
-                   std::sprintf(int_val, "%d", 6);
-                   chWr(&out, int_val, 4);
-                   outTXT << 6 << "\n";
-                }
-                foreach(Figure *fig, figureList){
-                   std::sprintf(int_val, "%d", 20);
-                   chWr(&out, int_val, 4);
-                   outTXT << 20 << "\n";
-                }
-                foreach(Figure *fig, figureList){
-                   std::sprintf(int_val, "%d", fig->getBound().type);
-                   chWr(&out, int_val, 4);
-                   outTXT << fig->getBound().type << "\n";
-                }
-                for(int i = 0; i < 4; ++i){
-                   double* coef;
-                   foreach(Figure *fig, figureList){
-                        coef = fig->getCoeff();
-                        std::sprintf(flo_val, "%f", (float)coef[i]);
-                        chWr(&out, flo_val, 4);
-                        outTXT << coef[i] << "\n";
-                   }
-                }
-                foreach(Figure *fig, figureList){
-                    std::sprintf(flo_val, "%f", (float)0.0);
-                    chWr(&out, flo_val, 4);
-                    outTXT << 0.0 << "\n";
-                }
-                foreach(Figure *fig, figureList){
-                    std::sprintf(flo_val, "%f", (float)1.0);
-                    chWr(&out, flo_val, 4);
-                    outTXT << 1.0 << "\n";
-                }
-                foreach(Figure *fig, figureList){
-                    std::sprintf(flo_val, "%f", (float)0.0);
-                    chWr(&out, flo_val, 4);
-                    outTXT << 0.0 << "\n";
-                }
-                foreach(Figure *fig, figureList){
-                    std::sprintf(flo_val, "%f", (float)0.0);
-                    chWr(&out, flo_val, 4);
-                    outTXT << 0.0 << "\n";
-                }
-                foreach(Figure *fig, figureList){
-                    std::sprintf(flo_val, "%f", (float)fig->getBound().value[0]);
-                    chWr(&out, flo_val, 4);
-                    outTXT << fig->getBound().value[0] << "\n";
-                }
-                foreach(Figure *fig, figureList){
-                    if(fig->getBound().method){
-                        std::sprintf(flo_val, "%f", (float)fig->getBound().value[1]);
-                        chWr(&out, flo_val, 4);
-                        outTXT << fig->getBound().value[1] << "\n";
-                    }else{
-                        std::sprintf(flo_val, "%f", (float)fig->getBound().value[0]);
-                        chWr(&out, flo_val, 4);
-                        outTXT << fig->getBound().value[0] << "\n";
-                    }
-                }
-                foreach(Figure *fig, figureList){
-                   std::sprintf(int_val, "%d", 2);
-                   chWr(&out, int_val, 4);
-                   outTXT << 2 << "\n";
-                }
+        out.setByteOrder(QDataStream::LittleEndian);
+        out << (int)figureList.length(); //MS
+        outTXT << (int)figureList.length() << "\n";
+        out << 0; //MX
+        out << 0; //MY
+        out << stData.geomT; //NDIM
+        outTXT << 0 << "\n";
+        outTXT << 0 << "\n";
+        outTXT << stData.geomT << "\n";
+        out << 0.0; //PR
+        out << 0.0; //PZ
+        out << (int)figureList.length()*14; //IID
+        outTXT << (float)0.0 << "\n";
+        outTXT << (float)0.0 << "\n";
+        outTXT << (int)figureList.count()*14 << "\n";
+        out.setFloatingPointPrecision(QDataStream::SinglePrecision);
+        for(int i = 0; i < (int)figureList.length(); ++i){
+            //NK
+           out << 6;
+           outTXT << 6 << "\n";
+        }
+        for(int i = 0; i < (int)figureList.length(); ++i){
+            //NN
+           out << 9;
+           outTXT << 9 << "\n";
+        }
+        foreach(Figure *fig, figureList){
+            //NG
+           out << fig->getBound().type;
+           outTXT << fig->getBound().type << "\n";
+        }
+        for(int i = 0; i < 4; ++i){
+            //Figure coefi [A, B, C, D]
+           double* coef;
+           foreach(Figure *fig, figureList){
+                coef = fig->getCoeff();
+                out << (float)coef[i];
+                outTXT << coef[i] << "\n";
+           }
+        }
+        for(int i = 0; i < (int)figureList.length(); ++i){
+            //AL
+            out << (float)0.0;
+            outTXT << 0.0 << "\n";
+        }
+        for(int i = 0; i < (int)figureList.length(); ++i){
+            //BT
+            out << (float)1.0;
+            outTXT << 1.0 << "\n";
+        }
+        for(int i = 0; i < (int)figureList.length(); ++i){
+            //GN
+            out << (float)0.0;
+            outTXT << 0.0 << "\n";
+        }
+        for(int i = 0; i < (int)figureList.length(); ++i){
+            //GK
+            out << (float)0.0;
+            outTXT << 0.0 << "\n";
+        }
+        foreach(Figure *fig, figureList){
+            //U1
+            out << (float)fig->getBound().value[0];
+            outTXT << fig->getBound().value[0] << "\n";
+        }
+        foreach(Figure *fig, figureList){
+            //U2
+            if(fig->getBound().method){
+                out << (float)fig->getBound().value[1];
+                outTXT << fig->getBound().value[1] << "\n";
+            }else{
+                out << (float)fig->getBound().value[0];
+                outTXT << fig->getBound().value[0] << "\n";
+            }
+        }
+        for(int i = 0; i < (int)figureList.length(); ++i){
+            //INT
+           out << 2;
+           outTXT << 2 << "\n";
+        }
 
     }
     fileGeo.close();
@@ -849,7 +752,8 @@ void MainWindow::fieldFileWrite(){
     QFile fileNAM(fileN.mid(0, (fileN.lastIndexOf("/", -1)+1)) + "TASK.NAM");
     if (fileNAM.open(QFile::WriteOnly)) {
         QDataStream out(&fileNAM);
-        QString substr = "\\DATA\\" + fileN.mid((fileN.lastIndexOf("/", -1)+1));
+        out.setByteOrder(QDataStream::LittleEndian);
+        QString substr = "G:\\PS2Test\\DATA\\" + fileN.mid((fileN.lastIndexOf("/", -1)+1));
         int len = substr.length();
         spaceWr(&out, len);
 //        char *int_val = new char[4];
