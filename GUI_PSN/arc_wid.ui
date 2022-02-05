@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>185</width>
-    <height>266</height>
+    <height>285</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="StAng"/>
+        <widget class="QDoubleSpinBox" name="StAng">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="decimals">
+          <number>5</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>360.000000000000000</double>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -58,7 +71,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="EnAng"/>
+        <widget class="QDoubleSpinBox" name="EnAng">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="decimals">
+          <number>5</number>
+         </property>
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>360.000000000000000</double>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -83,7 +109,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="Cent_x"/>
+        <widget class="QDoubleSpinBox" name="Cent_x">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="decimals">
+          <number>5</number>
+         </property>
+         <property name="minimum">
+          <double>-1000000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000000.000000000000000</double>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -97,7 +136,20 @@
         </widget>
        </item>
        <item>
-        <widget class="QDoubleSpinBox" name="Cent_y"/>
+        <widget class="QDoubleSpinBox" name="Cent_y">
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="decimals">
+          <number>5</number>
+         </property>
+         <property name="minimum">
+          <double>-1000000.000000000000000</double>
+         </property>
+         <property name="maximum">
+          <double>1000000.000000000000000</double>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -113,7 +165,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QDoubleSpinBox" name="Radius"/>
+      <widget class="QDoubleSpinBox" name="Radius">
+       <property name="buttonSymbols">
+        <enum>QAbstractSpinBox::NoButtons</enum>
+       </property>
+       <property name="decimals">
+        <number>5</number>
+       </property>
+       <property name="maximum">
+        <double>10000000.000000000000000</double>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -123,7 +185,8 @@
       <string>OK</string>
      </property>
      <property name="icon">
-      <iconset theme="Cancel"/>
+      <iconset theme="Cancel">
+       <normaloff>.</normaloff>.</iconset>
      </property>
     </widget>
    </item>

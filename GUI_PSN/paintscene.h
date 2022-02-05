@@ -28,7 +28,7 @@ public:
             CircleType,
             EllipseType,
             NoneType,
-            TriangleType
+            ArcType
         };
 
     signals:
@@ -52,6 +52,7 @@ public:
 //        void keyPressEvent(QKeyEvent *event);
 private slots:
         void updateAr(QPointF start, QPointF end);
+        void updateArc(QPointF start, double radius, QPointF angles);
         void buttonCanc();
 };
 

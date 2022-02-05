@@ -20,6 +20,7 @@ SOURCES += \
     elip_wid.cpp \
     ellipse.cpp \
     figure.cpp \
+    figurename.cpp \
     geometry.cpp \
     line.cpp \
     main.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     elip_wid.h \
     ellipse.h \
     figure.h \
+    figurename.h \
     geometry.h \
     line.h \
     mainwindow.h \
@@ -59,6 +61,7 @@ FORMS += \
     creategroup.ui \
     data.ui \
     elip_wid.ui \
+    figurename.ui \
     geometry.ui \
     mainwindow.ui \
     mesh.ui \

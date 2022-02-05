@@ -5,6 +5,10 @@
 #include "rec_wid.h"
 #include "circ_wid.h"
 #include "elip_wid.h"
+#include "arc_wid.h"
+#include "arc.h"
+#include "figurename.h"
+#include <QVBoxLayout>
 
 PaintScene::PaintScene(QObject *parent) : QGraphicsScene(parent)
 {
@@ -118,6 +122,20 @@ void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             connect(workPanel, &Elip_wid::Canc,this, &PaintScene::buttonCanc);
             break;
         }
+        case ArcType: {
+            Arc *item = new Arc(event->scenePos());
+            item->setPos(event->pos());
+            tempFigure = item;
+            this->addItem(tempFigure);
+            Arc_wid *workPanel = new Arc_wid(item->startPoint(), item->endPoint());
+            tempWidg = workPanel;
+            emit setWidget(workPanel);
+            connect(item, &Arc::pointChanged, workPanel, &Arc_wid::setA);
+            connect(workPanel, &Arc_wid::OK,item, &Arc::byButton);
+            connect(workPanel, &Arc_wid::OK,this, &PaintScene::updateArc);
+            connect(workPanel, &Arc_wid::Canc,this, &PaintScene::buttonCanc);
+            break;
+        }
     //    default:{
     //        Square *item = new Square(event->scenePos());
     //        item->setPos(event->pos());
@@ -125,8 +143,7 @@ void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     //        break;
     //    }
         }
-        QString name = tempFigure->getType() + " (%1)";
-        tempFigure->itemName = name.arg(number+1);
+        tempWidg->findChild<QVBoxLayout *>()->insertWidget(1, new FigureName(tempWidg));
     }
 }
 
@@ -134,8 +151,20 @@ void PaintScene::updateAr(QPointF start, QPointF end){
     Q_UNUSED(start);
     Q_UNUSED(end);
     this->update(QRectF(0,0,this->width(), this->height()));
+    QString name = tempWidg->findChild<FigureName *>()->getName();
+    if(name.isEmpty()){
+        tempFigure->itemName = tempFigure->getType() + tr(" (%1)").arg(number+1);
+    }else{
+        tempFigure->itemName = name;
+    }
+    ++number;
     emit sendFigure(tempFigure);
     tempFigure = 0;
+}
+
+void PaintScene::updateArc(QPointF start, double radius, QPointF angles){
+    Q_UNUSED(radius);
+    updateAr(start, angles);
 }
 
 void PaintScene::buttonCanc(){

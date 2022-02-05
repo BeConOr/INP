@@ -12,7 +12,7 @@ class Arc_wid : public QWidget
     Q_OBJECT
 
 public:
-    explicit Arc_wid(QWidget *parent = nullptr);
+    explicit Arc_wid(QPointF start, QPointF angles, QWidget *parent = nullptr);
     ~Arc_wid();
 
 signals:
@@ -25,6 +25,9 @@ private slots:
 
 private:
     Ui::Arc_wid *ui;
+
+public slots:
+    void setA(QPointF start, QPointF angles);
 };
 
 #endif // ARC_WID_H

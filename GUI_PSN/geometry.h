@@ -45,6 +45,7 @@ private slots:
     // Таймер для изменения размеров сцены при изменении размеров Окна приложения
     void line_pushButton_clicked();
     void circle_pushButton_clicked();
+    void arc_pushButton_clicked();
     void ellipse_pushButton_clicked();// Включаем отрисовку Линии
     void recieveWidget(QWidget *wid);
     void recieveFigure(Figure *fig);

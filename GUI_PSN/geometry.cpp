@@ -3,6 +3,7 @@
 #include "rec_wid.h"
 #include "circ_wid.h"
 #include "elip_wid.h"
+#include "arc_wid.h"
 #include <QStandardItem>
 #include <QTreeWidget>
 #include "creategroup.h"
@@ -46,6 +47,7 @@ Geometry::Geometry(QList<Figure *> list, QWidget *parent) :
 
     connect(ui->Line, SIGNAL(clicked()), this, SLOT(line_pushButton_clicked()));
     connect(ui->Circle, SIGNAL(clicked()), this, SLOT(circle_pushButton_clicked()));
+    connect(ui->Arc, SIGNAL(clicked()), this, SLOT(arc_pushButton_clicked()));
     connect(ui->Ellipse, SIGNAL(clicked()), this, SLOT(ellipse_pushButton_clicked()));
 
     connect(scene, &PaintScene::setWidget, this, &Geometry::recieveWidget);
@@ -118,6 +120,16 @@ void Geometry::circle_pushButton_clicked()
         scene->setTypeFigure(PaintScene::NoneType);
     }else{
         scene->setTypeFigure(PaintScene::CircleType);
+    }
+    scene->setCount(figureList.count());
+}
+
+void Geometry::arc_pushButton_clicked()
+{
+    if(scene->typeFigure() == PaintScene::ArcType){
+        scene->setTypeFigure(PaintScene::NoneType);
+    }else{
+        scene->setTypeFigure(PaintScene::ArcType);
     }
     scene->setCount(figureList.count());
 }
@@ -280,6 +292,16 @@ void Geometry::slotTimer(){
         QList<QPushButton *> button = ui->buttonGroup->findChildren<QPushButton *>(QString(), Qt::FindChildrenRecursively);
         foreach(QPushButton *item, button){
             if(item != ui->Ellipse){
+                item->setStyleSheet(QString("background-color: rgb(240,240,240); border = 1"));
+            }
+        }
+        break;
+    }
+    case PaintScene::ArcType:{
+        ui->Arc->setStyleSheet(QString("background-color: rgb(0,255,0);border: none;"));
+        QList<QPushButton *> button = ui->buttonGroup->findChildren<QPushButton *>(QString(), Qt::FindChildrenRecursively);
+        foreach(QPushButton *item, button){
+            if(item != ui->Arc){
                 item->setStyleSheet(QString("background-color: rgb(240,240,240); border = 1"));
             }
         }
