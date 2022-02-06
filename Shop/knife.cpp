@@ -34,6 +34,9 @@ Knife::Knife(QString dbname, int id, QWidget *parent) :
             QPixmap inPixmap;
             inPixmap.loadFromData(data.img,data.imgName.mid(data.imgName.lastIndexOf('.')).toLatin1());
             ui->Image_place->setPixmap(inPixmap.scaled(QSize(100, 100), Qt::KeepAspectRatio));
+            lowByteArray = data.img;
+            inByteArray = db->getLowKnife(data.id);
+            fileName = data.imgName;
         }
         ui->doubleSpinBox->setValue(data.cost);
         if(data.isKnife == 0){
@@ -173,12 +176,13 @@ void Knife::set(QStringList names, QStringList costs){
     ui->scrollArea->setWidget(w);
     QVBoxLayout *vbox = new QVBoxLayout(w);
     w->setLayout(vbox);
-    for(int i = 0; i < colors.count(); ++i){
+    for(int i = 0; i < colors.count()-1; ++i){
         double cost = 0.0;
-        for(int i = 0; i < names.count()-1; ++i){
+        for(int j = 0; j < names.count()-1; ++j){
             QString name = colors[i].rus + QString(" (%1)").arg(colors[i].number);
-            if(name == names[i]){
-                cost = costs[i].toDouble();
+            if(name == names[j]){
+                cost = costs[j].toDouble();
+                ui->checkBox->setChecked(true);
                 break;
             }
         }

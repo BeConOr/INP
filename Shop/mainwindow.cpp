@@ -78,7 +78,17 @@ void MainWindow::setKnifeList(){
         }
     }
 //    ui->KnifeScroll->findChild<QGridLayout *>()->deleteLater();
-    QList<Kn> knifes = db->selectKnife();
+    QList<Kn> notSort = db->selectKnife();
+    QList<Kn> knifes;
+    int itemCount = 0;
+    foreach(Kn item, notSort){
+        if(item.isKnife == 1){
+            knifes.insert(itemCount, item);
+            ++itemCount;
+        }else{
+            knifes.append(item);
+        }
+    }
     QList<Co> colors = db->selectColor();
     QWidget *w = new QWidget(ui->KnifeScroll);
     ui->KnifeScroll->setWidget(w);
