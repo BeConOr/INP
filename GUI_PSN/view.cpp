@@ -1,4 +1,5 @@
 #include "view.h"
+#include "figure.h"
 
 View::View(): QGraphicsView()
 {
@@ -35,19 +36,19 @@ void View::wheelEvent(QWheelEvent *event){
 void View::keyPressEvent(QKeyEvent *event){
     switch (event->key()) {
     case Qt::Key_Left:{
-        this->scene()->setSceneRect(QRectF(100, 0, this->scene()->width()+100, this->scene()->height()));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 100, this->sceneRect().topLeft().y()+0, this->scene()->width()+100, this->scene()->height()));
         break;
     }
     case Qt::Key_Right:{
-        this->scene()->setSceneRect(QRectF(-100, 0, this->scene()->width()-100, this->scene()->height()));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x()-100, this->sceneRect().topLeft().y()+0, this->scene()->width()-100, this->scene()->height()));
         break;
     }
     case Qt::Key_Up:{
-        this->scene()->setSceneRect(QRectF(0, 100, this->scene()->width(), this->scene()->height()+100));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 0, this->sceneRect().topLeft().y()+100, this->scene()->width(), this->scene()->height()+100));
         break;
     }
     case Qt::Key_Down:{
-        this->scene()->setSceneRect(QRectF(0, -100, this->scene()->width(), this->scene()->height()-100));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 0, this->sceneRect().topLeft().y()-100, this->scene()->width(), this->scene()->height()-100));
         break;
     }
     }

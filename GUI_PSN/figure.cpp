@@ -15,6 +15,8 @@ Figure::Figure(QPointF point) : QGraphicsObject()
         lastId = 0;
         groupName = "Figures";
         condition = {0, false, {0.0, 0.0}};
+
+        pen.setCosmetic(true);
 }
 
 Figure::~Figure(){
@@ -103,11 +105,13 @@ void Figure::cancelGroup(){
 }
 
 void Figure::fPen(){
-    pen = QPen(Qt::green, 2);
+//    pen = QPen(Qt::green, 2);
+    pen.setColor(Qt::green);
 }
 
 void Figure::oPen(){
-    pen = QPen(Qt::blue, 2);
+//    pen = QPen(Qt::blue, 2);
+    pen.setColor(Qt::blue);
 }
 
 void Figure::setBound(int type, bool method, double *value){

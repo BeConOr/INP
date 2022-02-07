@@ -143,7 +143,9 @@ void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
     //        break;
     //    }
         }
-        tempWidg->findChild<QVBoxLayout *>()->insertWidget(1, new FigureName(tempWidg));
+        if(tempWidg != 0){
+            tempWidg->findChild<QVBoxLayout *>()->insertWidget(1, new FigureName(tempWidg));
+        }
     }
 }
 
@@ -160,6 +162,8 @@ void PaintScene::updateAr(QPointF start, QPointF end){
     ++number;
     emit sendFigure(tempFigure);
     tempFigure = 0;
+    tempWidg->deleteLater();
+    tempWidg = 0;
 }
 
 void PaintScene::updateArc(QPointF start, double radius, QPointF angles){
@@ -172,6 +176,7 @@ void PaintScene::buttonCanc(){
     tempFigure->deleteLater();
     tempFigure = 0;
     tempWidg->deleteLater();
+    tempWidg = 0;
 }
 
 //void PaintScene::keyPressEvent(QKeyEvent *event){

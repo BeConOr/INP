@@ -315,7 +315,7 @@ bool MainWindow::saveFile(const QString &fileName)
 //! [44] //! [45]
 {
     QString errorMessage;
-    fileN = fileName.mid(0, fileName.indexOf(".", 0));
+    fileN = fileName.mid(0, (fileName.count()-4));
 
     QGuiApplication::setOverrideCursor(Qt::WaitCursor);
     QSaveFile file(fileN + ".p2n");

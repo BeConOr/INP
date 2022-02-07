@@ -36,7 +36,9 @@ Geometry::Geometry(QList<Figure *> list, QWidget *parent) :
     scene->setTypeFigure(PaintScene::NoneType);
     QLineF axis_x;
     QPainter painter;
-    painter.setPen(QPen(Qt::black, 2));
+    QPen axisPen = QPen(Qt::black, 2);
+    axisPen.setCosmetic(true);
+    painter.setPen(axisPen);
     axis_x.setPoints(QPointF(-100,0), QPointF(100, 0));
     QLineF axis_y;
     axis_y.setPoints(QPointF(0,-100), QPointF(0, 100));
