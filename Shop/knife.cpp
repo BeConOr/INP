@@ -176,7 +176,7 @@ void Knife::set(QStringList names, QStringList costs){
     ui->scrollArea->setWidget(w);
     QVBoxLayout *vbox = new QVBoxLayout(w);
     w->setLayout(vbox);
-    for(int i = 0; i < colors.count()-1; ++i){
+    for(int i = 0; i < colors.count(); ++i){
         double cost = 0.0;
         for(int j = 0; j < names.count()-1; ++j){
             QString name = colors[i].rus + QString(" (%1)").arg(colors[i].number);
