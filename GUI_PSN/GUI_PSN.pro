@@ -11,6 +11,7 @@ SOURCES += \
     Struck.cpp \
     arc.cpp \
     arc_wid.cpp \
+    bindpoint.cpp \
     bound.cpp \
     circ_wid.cpp \
     circle.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     Struck.h \
     arc.h \
     arc_wid.h \
+    bindpoint.h \
     bound.h \
     circ_wid.h \
     circle.h \
