@@ -49,6 +49,7 @@ public:
     BoundaryCond getBound();
 
     double* getCoeff();
+    double* getAngles();
 
 
 signals:
@@ -69,7 +70,8 @@ private:
 protected:
     QPen pen = QPen(Qt::blue, 2);
 
-    double paramValue[4] = {0.0, 0.0, 0.0, 0.0};;
+    double paramValue[4] = {0.0, 0.0, 0.0, 0.0};
+    double angles[2] = {0.0, 1.0};
 
 public slots:
     virtual void updateRomb();     // Слот обновления области, в которой содержится фигура

@@ -9,6 +9,7 @@
 #include "line.h"
 #include "circle.h"
 #include "ellipse.h"
+#include "arc.h"
 #include "bound.h"
 #include "mesh.h"
 #include "iostream"
@@ -324,7 +325,8 @@ bool MainWindow::saveFile(const QString &fileName)
     QTextStream outGeo(&fileGeom);   // we will serialize the data into the file
     outGeo << figureList.count() << "\n";
     foreach(Figure *item, figureList){
-        outGeo << item->startPoint().x() << "|" << item->startPoint().y() << "|" << item->endPoint().x() << "|" << item->endPoint().y() << "|" << item->getType() << "|" << item->getGroupId() << "|" << item->getGroupName() << "|" << item->getBound().type << "|" << item->getBound().method << "|" << item->getBound().value[0] << "|" << item->getBound().value[1] << "|" << item->itemName << "\n";
+        double* angles = item->getAngles();
+        outGeo << item->startPoint().x() << "|" << item->startPoint().y() << "|" << item->endPoint().x() << "|" << item->endPoint().y() << "|" << angles[0] << "|" << angles[1] << "|"<< item->getType() << "|" << item->getGroupId() << "|" << item->getGroupName() << "|" << item->getBound().type << "|" << item->getBound().method << "|" << item->getBound().value[0] << "|" << item->getBound().value[1] << "|" << item->itemName << "\n";
     }
     fileGeom.close();
     if (file.open(QFile::WriteOnly | QFile::Text)) {
@@ -416,28 +418,28 @@ void MainWindow::loadFile(const QString &fileName)
 //                coor.append(line.mid((start+1), (end - start - 1)).toDouble());
 //            }
             switch(counter){
-            case 5:
+            case 7:
                 type = line.mid((start+1), (end - start - 1));
                 break;
-            case 6:
+            case 8:
                 ID = line.mid((start+1), (end - start - 1)).toInt();
                 break;
-            case 7:
+            case 9:
                 group = line.mid((start+1), (end - start - 1));
                 break;
-            case 8:
+            case 10:
                 typeB = line.mid((start+1), (end - start - 1)).toInt();
                 break;
-            case 9:
+            case 11:
                 method = line.mid((start+1), (end - start - 1)).toInt();
                 break;
-            case 10:
+            case 12:
                 value[0] = line.mid((start+1), (end - start - 1)).toDouble();
                 break;
-            case 11:
+            case 13:
                 value[1] = line.mid((start+1), (end - start - 1)).toDouble();
                 break;
-            case 12:
+            case 14:
                 itemName = line.mid(start+1);
                 break;
             default:
@@ -477,6 +479,14 @@ void MainWindow::loadFile(const QString &fileName)
             notEmpty = true;
 //            ellipse->changeGroup(ID, group);
 //            figureList.append(ellipse);
+        }
+        if(type.contains("Arc", Qt::CaseInsensitive)){
+            class Arc *arc = new class Arc(QPointF(coor[0], coor[1]));
+            arc->byButton(QPointF(coor[0], coor[1]), coor[2], QPointF(coor[4]  * 180.0/M_PI, coor[5]  * 180.0/M_PI));
+            tempFig = arc;
+            notEmpty = true;
+//            circle->changeGroup(ID, group);
+//            figureList.append(circle);
         }
         if(notEmpty){
             tempFig->changeGroup(ID, group);
@@ -593,12 +603,12 @@ void MainWindow::fieldFileWrite(){
         out << 0;
         out << 1;
         out << stData.stream;
-        out << (float)coef.len;
-        out << (float)coef.pot;
-        out <<(float)coef.curr;
-        out << (float)coef.mag;
-        out << (float)coef.len*0.000001;
-        out << (float)coef.curr;
+        out << (double)coef.len;
+        out << (double)coef.pot;
+        out <<(double)coef.curr;
+        out << (double)coef.mag;
+        out << (double)coef.len*0.000001;
+        out << (double)coef.curr;
         out << 0;
         out << 0;
         out << 0;
@@ -625,15 +635,15 @@ void MainWindow::fieldFileWrite(){
         outTXT << 0 << "\n";
         for(int i = 1; i <= stData.numb; i++){
             double step_iq = (stData.umax - stData.umin)/(stData.numb + 1.0);
-            out << (float)(stData.umin + step_iq*i);
+            out << (double)(stData.umin + step_iq*i);
             outTXT << stData.umin + step_iq*i << "\n";
         }
         outTXT << true << "\n";
         outTXT << 0 << "\n";
-        outTXT << (float)stData.step << "\n";
+        outTXT << (double)stData.step << "\n";
         out << true;
         out << 0;
-        out << (float)stData.step;
+        out << (double)stData.step;
     }
     file.close();
     fileTXT.close();
@@ -684,16 +694,25 @@ void MainWindow::fieldFileWrite(){
                 outTXT << coef[i] << "\n";
            }
         }
-        for(int i = 0; i < (int)figureList.length(); ++i){
-            //AL
-            out << (float)0.0;
-            outTXT << 0.0 << "\n";
+        for(int i = 0; i < 2; ++i){
+            //Figure coefi [A, B, C, D]
+           double* angles;
+           foreach(Figure *fig, figureList){
+                angles = fig->getAngles();
+                out << (float)angles[i];
+                outTXT << angles[i] << "\n";
+           }
         }
-        for(int i = 0; i < (int)figureList.length(); ++i){
-            //BT
-            out << (float)1.0;
-            outTXT << 1.0 << "\n";
-        }
+//        for(int i = 0; i < (int)figureList.length(); ++i){
+//            //AL
+//            out << (float)0.0;
+//            outTXT << 0.0 << "\n";
+//        }
+//        for(int i = 0; i < (int)figureList.length(); ++i){
+//            //BT
+//            out << (float)1.0;
+//            outTXT << 1.0 << "\n";
+//        }
         for(int i = 0; i < (int)figureList.length(); ++i){
             //GN
             out << (float)0.0;

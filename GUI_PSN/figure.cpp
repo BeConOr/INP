@@ -128,3 +128,7 @@ BoundaryCond Figure::getBound(){
 double* Figure::getCoeff(){
     return paramValue;
 }
+
+double* Figure::getAngles(){
+    return angles;
+}

@@ -15,6 +15,7 @@ public:
 private:
     void wheelEvent(QWheelEvent *event);
     void keyPressEvent(QKeyEvent *event);
+    double scaleFactor = 1.0;
     //void mousePressEvent(QMouseEvent *event);
     //void mouseMoveEvent(QMouseEvent *event);
 };

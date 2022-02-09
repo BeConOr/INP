@@ -26,29 +26,32 @@ void View::wheelEvent(QWheelEvent *event){
 //        }
         if(numDegrees.y() > 0){
            this->scale(1.2, 1.2);
+            scaleFactor /= 1.2;
         }else{
             this->scale(0.8, 0.8);
+            scaleFactor *= 1.2;
         }
         //event->accept();
     }
 }
 
 void View::keyPressEvent(QKeyEvent *event){
+    double swch = scaleFactor * 100;
     switch (event->key()) {
     case Qt::Key_Left:{
-        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 100, this->sceneRect().topLeft().y()+0, this->scene()->width()+100, this->scene()->height()));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + swch, this->sceneRect().topLeft().y()+0, this->scene()->width()+swch, this->scene()->height()));
         break;
     }
     case Qt::Key_Right:{
-        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x()-100, this->sceneRect().topLeft().y()+0, this->scene()->width()-100, this->scene()->height()));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x()-swch, this->sceneRect().topLeft().y()+0, this->scene()->width()-swch, this->scene()->height()));
         break;
     }
     case Qt::Key_Up:{
-        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 0, this->sceneRect().topLeft().y()+100, this->scene()->width(), this->scene()->height()+100));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 0, this->sceneRect().topLeft().y()+swch, this->scene()->width(), this->scene()->height()+swch));
         break;
     }
     case Qt::Key_Down:{
-        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 0, this->sceneRect().topLeft().y()-100, this->scene()->width(), this->scene()->height()-100));
+        this->scene()->setSceneRect(QRectF(this->sceneRect().topLeft().x() + 0, this->sceneRect().topLeft().y()-swch, this->scene()->width(), this->scene()->height()-swch));
         break;
     }
     }

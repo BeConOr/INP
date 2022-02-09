@@ -48,20 +48,22 @@ void Arc::byButton(QPointF start, double radius, QPointF end){
     flag = true;
     this->setStartPoint(start);
     this->radius = radius;
-    qreal end_x = start.x()+radius/qSqrt(2.0);
-    qreal end_y = start.y()+radius/qSqrt(2.0);
+//    qreal end_x = start.x()+radius/qSqrt(2.0);
+//    qreal end_y = start.y()+radius/qSqrt(2.0);
     startAngle = end.x();
     endAngle = end.y();
     qDebug() << "Arc parameters:";
     qDebug() << "Startpoint: " << startPoint().x() << ", " << -startPoint().y();
     qDebug() << "Radius: " << this->radius;
     qDebug() << "Angles: " << startAngle << ", " << endAngle;
-    this->setEndPoint(QPointF(end_x, end_y));
+    this->setEndPoint(QPointF(radius, radius));
 
-    paramValue[0] = end.x();
-    paramValue[2] = end.x();
+    paramValue[0] = this->radius;
+    paramValue[2] = this->radius;
     paramValue[1] = start.x();
     paramValue[3] = start.y();
+    angles[0] = startAngle * M_PI/180.0;
+    angles[1] = endAngle * M_PI/180.0;
 }
 
 QRectF Arc::boundingRect() const

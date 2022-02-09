@@ -5,13 +5,12 @@
 #include <QPointF>
 #include "figure.h"
 
-class BindPoint : public QPointF
+class BindPoint : public QObject, public QPointF
 {
     Q_OBJECT
 public:
-    explicit BindPoint(Figure *par, const QPoint &point);
+    explicit BindPoint(Figure *par);
 
-signals:
 private:
     Figure *parent;
     QList<BindPoint *> binded;

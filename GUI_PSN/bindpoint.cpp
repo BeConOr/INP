@@ -1,6 +1,6 @@
 #include "bindpoint.h"
 
-BindPoint::BindPoint(Figure *par, const QPoint &point) : QPointF(point)
+BindPoint::BindPoint(Figure *par) : QObject(), QPointF()
 {
     parent = par;
 }

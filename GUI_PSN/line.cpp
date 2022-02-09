@@ -34,14 +34,14 @@ void Line::byButton(QPointF start, QPointF end, bool check){
         qreal end_y = start.y()-end.x()*qSin(end.y()*M_PI/180.0);
         this->setEndPoint(QPointF(end_x, end_y));
         paramValue[1] = end_x;
-        paramValue[3] = end_y;
+        paramValue[3] = -end_y;
     }else{
         this->setStartPoint(start);
         this->setEndPoint(end);
         paramValue[1] = end.x();
-        paramValue[3] = end.y();
+        paramValue[3] = -end.y();
     }
 
     paramValue[0] = start.x();
-    paramValue[2] = start.y();
+    paramValue[2] = -start.y();
 }
