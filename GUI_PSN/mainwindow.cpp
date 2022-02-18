@@ -482,7 +482,7 @@ void MainWindow::loadFile(const QString &fileName)
         }
         if(type.contains("Arc", Qt::CaseInsensitive)){
             class Arc *arc = new class Arc(QPointF(coor[0], coor[1]));
-            arc->byButton(QPointF(coor[0], coor[1]), coor[2], QPointF(coor[4]  * 180.0/M_PI, coor[5]  * 180.0/M_PI));
+            arc->byButton(QPointF(coor[0], coor[1]), coor[2], QPointF(coor[4]  * 360.0, coor[5]  * 360.0));
             tempFig = arc;
             notEmpty = true;
 //            circle->changeGroup(ID, group);

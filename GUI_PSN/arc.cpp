@@ -62,8 +62,8 @@ void Arc::byButton(QPointF start, double radius, QPointF end){
     paramValue[2] = this->radius;
     paramValue[1] = start.x();
     paramValue[3] = start.y();
-    angles[0] = startAngle * M_PI/180.0;
-    angles[1] = endAngle * M_PI/180.0;
+    angles[0] = startAngle / 360.0;
+    angles[1] = endAngle /360.0;
 }
 
 QRectF Arc::boundingRect() const
