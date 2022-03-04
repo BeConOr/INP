@@ -21,6 +21,7 @@ public:
         int typeFigure() const;                 // Возвращение текущего типа
         void setTypeFigure(const int type);     // Установка текущего типа
         void setCount(int numb);
+//        void setGridMesh();
 
         // Перечисление типов используемых фигур
         enum FigureTypes {

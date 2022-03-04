@@ -3,6 +3,7 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+QT += svg
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
@@ -18,11 +19,13 @@ SOURCES += \
     creategroup.cpp \
     currtask.cpp \
     data.cpp \
+    devidecond.cpp \
     elip_wid.cpp \
     ellipse.cpp \
     figure.cpp \
     figurename.cpp \
     geometry.cpp \
+    gridmesh.cpp \
     line.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -43,11 +46,13 @@ HEADERS += \
     creategroup.h \
     currtask.h \
     data.h \
+    devidecond.h \
     elip_wid.h \
     ellipse.h \
     figure.h \
     figurename.h \
     geometry.h \
+    gridmesh.h \
     line.h \
     mainwindow.h \
     mesh.h \
@@ -62,6 +67,7 @@ FORMS += \
     circ_wid.ui \
     creategroup.ui \
     data.ui \
+    devidecond.ui \
     elip_wid.ui \
     figurename.ui \
     geometry.ui \

@@ -132,3 +132,12 @@ double* Figure::getCoeff(){
 double* Figure::getAngles(){
     return angles;
 }
+
+int* Figure::getDevide(){
+    return devide;
+}
+
+void Figure::setDevide(int div, int kvadr){
+    devide[0] = div;
+    devide[1] = kvadr;
+}

@@ -13,6 +13,9 @@
 #include "bound.h"
 #include "mesh.h"
 #include "iostream"
+#include "devidecond.h"
+#include <QSvgGenerator>
+#include <QSvgRenderer>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -89,6 +92,11 @@ void MainWindow::launchGeom(){
 void MainWindow::launchBound(){
     Bound *BoundDialog = new Bound(figureList);
     BoundDialog->show();
+}
+
+void MainWindow::launchDevide(){
+    DevideCond *DevideDialog = new DevideCond(figureList);
+    DevideDialog->show();
 }
 
 void MainWindow::launchMesh(){
@@ -244,11 +252,19 @@ void MainWindow::createActions()
     const QIcon boundIcon = QIcon::fromTheme("application-exit");
     QAction *boundAct = geomMenu->addAction(boundIcon, tr("Boundary& condition"), this, &MainWindow::launchBound);
     boundAct->setStatusTip(tr("Define boundary condition"));
+
+    const QIcon devideIcon = QIcon::fromTheme("application-exit");
+    QAction *devideAct = geomMenu->addAction(devideIcon, tr("Segm&entation"), this, &MainWindow::launchDevide);
+    devideAct->setStatusTip(tr("Set segmentation"));
+
     const QIcon meshIcon = QIcon::fromTheme("application-exit");
     QAction *meshAct = geomMenu->addAction(boundIcon, tr("&Mesh"), this, &MainWindow::launchMesh);
     meshAct->setStatusTip(tr("Set mesh"));
     //QAction *aboutAct = helpMenu->addAction(tr("&About"), this, &MainWindow::about);
     QMenu *viewMenu = ui->menubar->addMenu(tr("&View"));
+    const QIcon takePicIcon = QIcon::fromTheme("application-exit");
+    QAction *takePicAct = viewMenu->addAction(takePicIcon, tr("Take& a picture"), this, &MainWindow::slotTakePic);
+    takePicAct->setStatusTip(tr("Picture is taken"));
 
 
     QMenu *traceMenu = ui->menubar->addMenu(tr("&Trace"));
@@ -804,5 +820,29 @@ void MainWindow::spaceWr(QDataStream *in, float n){
 void MainWindow::chWr(QDataStream *in, char *n, int len){
     for(int i = 0; i < len; ++i){
         *in << n[i];
+    }
+}
+
+void MainWindow::slotTakePic(){
+    QFileDialog dialog(this, tr("Open File"), "/poissonPic", tr("Pictures (*.svg)"));
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    if (dialog.exec() == QDialog::Accepted){
+        QString picName = dialog.selectedFiles().first();
+        QSvgGenerator generator;
+        if(!picName.contains(QString(".svg"))){
+            picName = picName + QString(".svg");
+        }
+        generator.setFileName(picName);
+//        graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
+        QRect viewport_rect(0, 0, graphicsView->viewport()->width(), graphicsView->viewport()->height());
+        QRectF visible_scene_rect = graphicsView->mapToScene(viewport_rect).boundingRect();
+        QSize sceneSize = visible_scene_rect.size().toSize();
+        generator.setSize(sceneSize);
+        generator.setViewBox(visible_scene_rect);
+        QPainter painter;
+        painter.begin(&generator);
+        scene->render(&painter);
+        painter.end();
     }
 }

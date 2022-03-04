@@ -9,10 +9,13 @@
 #include "arc.h"
 #include "figurename.h"
 #include <QVBoxLayout>
+#include "gridmesh.h"
 
 PaintScene::PaintScene(QObject *parent) : QGraphicsScene(parent)
 {
     tempFigure = 0;
+    GridMesh* mesh = new GridMesh(this);
+    this->addItem(mesh);
 }
 
 PaintScene::~PaintScene()
@@ -67,7 +70,7 @@ void PaintScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
  * */
 void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    if(event->button() == Qt::LeftButton){
+    if(event->button() == Qt::LeftButton && m_typeFigure != NoneType){
         if(tempFigure != 0){
             //tempFigure->deleteLater();
             this->removeItem(tempFigure);
@@ -203,3 +206,4 @@ void PaintScene::buttonCanc(){
 void PaintScene::setCount(int numb){
     number = numb;
 }
+

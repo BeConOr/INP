@@ -52,6 +52,7 @@ private slots:
     void launchUnits();
     void launchGeom();
     void launchBound();
+    void launchDevide();
     void launchMesh();
     void newFile();
     void open();
@@ -59,5 +60,6 @@ private slots:
     bool saveAs();
     void getFigureList(QList<Figure *> list);
     void slotExit();
+    void slotTakePic();
 };
 #endif // MAINWINDOW_H

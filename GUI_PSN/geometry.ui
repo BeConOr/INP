@@ -17,26 +17,54 @@
    <item>
     <widget class="QWidget" name="buttonGroup" native="true">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="4">
-       <widget class="QPushButton" name="Polyline">
+      <item row="0" column="3">
+       <widget class="QPushButton" name="Arc">
         <property name="text">
-         <string>Polyline</string>
-        </property>
-        <property name="icon">
-         <iconset resource="GUI_PSN.qrc">
-          <normaloff>:/images/polyline.png</normaloff>:/images/polyline.png</iconset>
+         <string>Arc</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="7">
-       <widget class="QComboBox" name="AddList">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="Line">
+        <property name="text">
+         <string>Line</string>
+        </property>
+        <property name="icon">
+         <iconset resource="GUI_PSN.qrc">
+          <normaloff>:/images/line.png</normaloff>:/images/line.png</iconset>
         </property>
        </widget>
+      </item>
+      <item row="0" column="8">
+       <widget class="QPushButton" name="DelGr">
+        <property name="text">
+         <string>Delete Group</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="11">
+       <widget class="QPushButton" name="Generate">
+        <property name="text">
+         <string>Generate</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>images/light.png</normaloff>images/light.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="Circle">
@@ -49,17 +77,10 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="5">
-       <widget class="Line" name="line_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+      <item row="1" column="11">
+       <widget class="QPushButton" name="Exit">
+        <property name="text">
+         <string>Exit</string>
         </property>
        </widget>
       </item>
@@ -67,28 +88,6 @@
        <widget class="QPushButton" name="CrGroup">
         <property name="text">
          <string>Create Group</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="Rectangle">
-        <property name="text">
-         <string>Rectangle</string>
-        </property>
-        <property name="icon">
-         <iconset resource="GUI_PSN.qrc">
-          <normaloff>:/images/rec.png</normaloff>:/images/rec.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="Line">
-        <property name="text">
-         <string>Line</string>
-        </property>
-        <property name="icon">
-         <iconset resource="GUI_PSN.qrc">
-          <normaloff>:/images/line.png</normaloff>:/images/line.png</iconset>
         </property>
        </widget>
       </item>
@@ -107,27 +106,20 @@
        </widget>
       </item>
       <item row="0" column="10">
-       <widget class="QPushButton" name="Generate">
+       <widget class="Line" name="line_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="Rectangle">
         <property name="text">
-         <string>Generate</string>
+         <string>Rectangle</string>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>images/light.png</normaloff>images/light.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="10">
-       <widget class="QPushButton" name="Exit">
-        <property name="text">
-         <string>Exit</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="Arc">
-        <property name="text">
-         <string>Arc</string>
+         <iconset resource="GUI_PSN.qrc">
+          <normaloff>:/images/rec.png</normaloff>:/images/rec.png</iconset>
         </property>
        </widget>
       </item>
@@ -142,30 +134,52 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="10">
+       <widget class="Line" name="line_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="7">
+       <widget class="QComboBox" name="AddList">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QPushButton" name="Polyline">
+        <property name="text">
+         <string>Polyline</string>
+        </property>
+        <property name="icon">
+         <iconset resource="GUI_PSN.qrc">
+          <normaloff>:/images/polyline.png</normaloff>:/images/polyline.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="3">
        <widget class="QPushButton" name="ByPoint">
         <property name="text">
          <string>Create by point</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="9">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="8">
-       <widget class="QPushButton" name="DelGr">
-        <property name="text">
-         <string>Delete Group</string>
         </property>
        </widget>
       </item>

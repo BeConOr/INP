@@ -50,6 +50,8 @@ public:
 
     double* getCoeff();
     double* getAngles();
+    int* getDevide();
+    void setDevide(int div, int kvadr);
 
 
 signals:
@@ -72,6 +74,7 @@ protected:
 
     double paramValue[4] = {0.0, 0.0, 0.0, 0.0};
     double angles[2] = {0.0, 1.0};
+    int devide[2] = {6, 9};
 
 public slots:
     virtual void updateRomb();     // Слот обновления области, в которой содержится фигура
