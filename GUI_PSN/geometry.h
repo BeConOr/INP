@@ -57,6 +57,7 @@ private slots:
     void launchCreate();
     void addToGroup();
     void deleteGroup();
+    void scaleScene();
 };
 
 #endif // GEOMETRY_H

@@ -49,7 +49,8 @@ MainWindow::MainWindow(QWidget *parent)
     graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);   // Отключаем скроллбар по вертикали
     graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     graphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
-    scene->setSceneRect(QRectF(QPointF(0, 0), QSizeF(scene->width(), scene->height())));// Отключаем скроллбар по горизонтали
+//    scene->setSceneRect(QRectF(QPointF(0, 0), QSizeF(scene->width(), scene->height())));
+    scene->setSceneRect(0, 0, graphicsView->width(), graphicsView->height());// Отключаем скроллбар по горизонтали
 }
 
 MainWindow::~MainWindow()
@@ -827,6 +828,9 @@ void MainWindow::slotTakePic(){
     QFileDialog dialog(this, tr("Open File"), "/poissonPic", tr("Pictures (*.svg)"));
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
+    qDebug() << "Rect: " << scene->sceneRect().topLeft() << ", " << scene->width() - scene->sceneRect().topLeft().x() << "x" << scene->height() - scene->sceneRect().topLeft().y();
+    qDebug() << "View Rect: " << graphicsView->width() << ", " << graphicsView->height();
+    qDebug() << "Rect: " << scene->itemsBoundingRect();
     if (dialog.exec() == QDialog::Accepted){
         QString picName = dialog.selectedFiles().first();
         QSvgGenerator generator;
@@ -834,15 +838,24 @@ void MainWindow::slotTakePic(){
             picName = picName + QString(".svg");
         }
         generator.setFileName(picName);
+
 //        graphicsView->fitInView(scene->sceneRect(), Qt::KeepAspectRatio);
-        QRect viewport_rect(0, 0, graphicsView->viewport()->width(), graphicsView->viewport()->height());
-        QRectF visible_scene_rect = graphicsView->mapToScene(viewport_rect).boundingRect();
-        QSize sceneSize = visible_scene_rect.size().toSize();
-        generator.setSize(sceneSize);
-        generator.setViewBox(visible_scene_rect);
+        scene->setSceneRect(scene->itemsBoundingRect());
+        generator.setSize(QSize(scene->itemsBoundingRect().width(), scene->itemsBoundingRect().height()));  // Устанавливаем размеры рабочей области документа в миллиметрах
+//        generator.setViewBox(scene->itemsBoundingRect());
+        generator.setViewBox(QRect(-5, -5, scene->itemsBoundingRect().width()+10, scene->itemsBoundingRect().height()+10));// Устанавливаем рабочую область в координатах
+        generator.setTitle(tr("SVG Example"));                          // Титульное название документа
+        generator.setDescription(tr("File created by SVG Example"));    // Описание документа
         QPainter painter;
         painter.begin(&generator);
         scene->render(&painter);
         painter.end();
+        QImage image(QSize(scene->itemsBoundingRect().width()+15, scene->itemsBoundingRect().height()+15), QImage::Format_RGBX64);
+        image.fill(Qt::white);
+        QPainter imgPainter(&image);
+        scene->render(&imgPainter);
+        imgPainter.end();
+        QString imgName = picName.mid(0, picName.lastIndexOf(".", 0));
+        image.save(imgName + ".png");
     }
 }
