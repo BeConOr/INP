@@ -57,4 +57,17 @@ struct InitUnits{
     };
 };
 
+struct MeshCond{
+    QList<double> z;
+    QList<double> r;
+    QList<int> zN;
+    QList<int> rN;
+    int meshNodeNumb();
+};
+
+struct SeqCond{
+    double coord;
+    int seqNumb;
+};
+
 #endif // STRUCK_H

@@ -59,7 +59,9 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="RpartLay"/>
+        <widget class="QWidget" name="RPartLay" native="true">
+         <layout class="QVBoxLayout" name="RpartLay"/>
+        </widget>
        </item>
       </layout>
      </item>
@@ -113,7 +115,9 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="ZpartLay"/>
+        <widget class="QWidget" name="ZPartLay" native="true">
+         <layout class="QVBoxLayout" name="ZpartLay"/>
+        </widget>
        </item>
       </layout>
      </item>
@@ -161,8 +165,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>75</x>
-     <y>54</y>
+     <x>234</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
      <x>64</x>
@@ -177,12 +181,28 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>273</x>
-     <y>51</y>
+     <x>324</x>
+     <y>195</y>
     </hint>
     <hint type="destinationlabel">
      <x>282</x>
      <y>33</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>OK_butt</sender>
+   <signal>clicked()</signal>
+   <receiver>Mesh</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>197</x>
+     <y>181</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>110</x>
+     <y>159</y>
     </hint>
    </hints>
   </connection>

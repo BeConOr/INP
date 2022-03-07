@@ -26,3 +26,25 @@ void UnitsCoef::copy(UnitsCoef *a){
     a->ch = ch;
     a->cond = cond;
 }
+
+int MeshCond::meshNodeNumb(){
+    int zSum = 0;
+    int rSum = 0;
+    int zCount = z.count();
+    int rCount = r.count();
+    if(z.count() > 1){
+        for(int i = 0; i < zN.count(); ++i){
+            zSum += zN[i];
+        }
+    }else{
+        zCount = 0;
+    }
+    if(r.count() > 1){
+        for(int i = 0; i < rN.count(); ++i){
+            rSum += rN[i];
+        }
+    }else{
+        rCount = 0;
+    }
+    return (zCount + zSum)*(rCount + rSum);
+}

@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
     setCurrentFile(QString());
     setUnifiedTitleAndToolBarOnMac(true);
 
+    mesh_size.r.append(0.0);
+    mesh_size.z.append(0.0);
+
     inData.typeT = {"Laplace", "Poisson", "Trace", "Beams"};
     inData.geomT = {"Plane", "Plane Ext", "Axial", "Harmonics"};
     inData.meshArr = {"No Listing", "Parameters", "Arrays", "Matrices"};
@@ -101,13 +104,8 @@ void MainWindow::launchDevide(){
 }
 
 void MainWindow::launchMesh(){
-    Mesh *MeshDialog = new Mesh(mesh_size);
+    Mesh *MeshDialog = new Mesh(&mesh_size);
     MeshDialog->show();
-    if (MeshDialog->exec() == QDialog::Accepted) {
-        mesh_size = MeshDialog->sizeVal();
-    }
-            delete MeshDialog;
-    qDebug() << mesh_size;
 }
 //! [4]
 
@@ -361,7 +359,7 @@ bool MainWindow::saveFile(const QString &fileName)
         out << stData.numb << "\n";
         out << stData.umin << "\n";
         out << stData.umax << "\n";
-        out << mesh_size << "\n";
+        out << mesh_size.meshNodeNumb() << "\n";
         for(int i = 0; i < 7; i++){
             out << order[i] << "\n";
         }
@@ -536,7 +534,8 @@ void MainWindow::loadFile(const QString &fileName)
     stData.numb = in.readLine().toInt();
     stData.umin = in.readLine().toDouble();
     stData.umax = in.readLine().toDouble();
-    mesh_size = in.readLine().toDouble();
+    int m_size = in.readLine().toDouble();
+    Q_UNUSED(m_size);
     for(int i = 0; i < 7; i++){
         order[i] = in.readLine().toInt();
     }
@@ -585,7 +584,6 @@ void MainWindow::fieldFileWrite(){
         out.setByteOrder(QDataStream::LittleEndian);
         out << 4000 << 4000;
         outTXT << tr("MAXK: %1").arg(4000) << "\n" << tr("LENG: %1").arg(4000) << "\n";
-        int mesh_number = 1;
 //        if((mesh_size - 0.0) > 0.0000000000001){
 //            int node_number = 0;
 //            foreach(Figure *fig, figureList){
@@ -613,8 +611,8 @@ void MainWindow::fieldFileWrite(){
             out << 0;
             outTXT << tr("NPOIS: %1").arg(1) << "\n";
         }
-        out << mesh_number -1;
-        outTXT << tr("NSET: %1").arg(mesh_number -1) << "\n";
+        out << mesh_size.meshNodeNumb();
+        outTXT << tr("NSET: %1").arg(mesh_size.meshNodeNumb()) << "\n";
         out << 1;
         outTXT << tr("LPRIN: %1").arg(1) << "\n";
         out << stData.numb;
@@ -779,18 +777,18 @@ void MainWindow::fieldFileWrite(){
         fileSetTXT.open(QFile::WriteOnly | QFile::Text);
         QDataStream out(&fileSet);
         QTextStream outTXT(&fileSetTXT);
-        if((mesh_size - 0.0) > 0.0000000000001){
-            int node_number = 0;
-            foreach(Figure *fig, figureList){
-                node_number += ceil(fig->getLength()/mesh_size);
-            }
-            out << node_number;
-            out << node_number;
-            outTXT << node_number << "\n";
-            outTXT << node_number << "\n";
-        }else{
-            return;
-        }
+//        if((mesh_size - 0.0) > 0.0000000000001){
+//            int node_number = 0;
+//            foreach(Figure *fig, figureList){
+//                node_number += ceil(fig->getLength()/mesh_size);
+//            }
+//            out << node_number;
+//            out << node_number;
+//            outTXT << node_number << "\n";
+//            outTXT << node_number << "\n";
+//        }else{
+//            return;
+//        }
     }
     fileSet.close();
     fileSetTXT.close();

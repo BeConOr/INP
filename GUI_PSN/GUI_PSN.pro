@@ -85,6 +85,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    images/Delete.png \
     images/copy.png \
     images/cut.png \
     images/new.png \

@@ -2,28 +2,28 @@
 #define SEQELEMENT_H
 
 #include <QWidget>
+#include "Struck.h"
 
 namespace Ui {
 class SeqElement;
 }
-
-struct SeqCond{
-    double coord;
-    int seqNumb;
-};
 
 class SeqElement : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SeqElement(QString name, QWidget *parent = nullptr);
+    explicit SeqElement(QString name, SeqCond curr, QWidget *parent = nullptr);
     ~SeqElement();
     SeqCond giveCond();
 
 
 private:
     Ui::SeqElement *ui;
+private slots:
+    void delBTN();
+signals:
+    void deleteSignals();
 };
 
 #endif // SEQELEMENT_H

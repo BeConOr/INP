@@ -35,7 +35,7 @@ private:
     QList<Figure *> figureList;
     QGraphicsScene *scene;
     View *graphicsView;
-    double mesh_size = 0.001;
+    MeshCond mesh_size;
     void fieldFileWrite();
     QString fileN = QString("Unnamed");
 
