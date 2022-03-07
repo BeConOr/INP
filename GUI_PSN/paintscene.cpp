@@ -14,8 +14,8 @@
 PaintScene::PaintScene(QObject *parent) : QGraphicsScene(parent)
 {
     tempFigure = 0;
-    GridMesh* mesh = new GridMesh(this);
-    this->addItem(mesh);
+//    GridMesh* mesh = new GridMesh(this);
+//    this->addItem(mesh);
 }
 
 PaintScene::~PaintScene()

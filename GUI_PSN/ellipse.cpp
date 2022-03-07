@@ -50,7 +50,7 @@ void Ellips::byButton(QPointF start, QPointF end){
     paramValue[0] = end.x();
     paramValue[2] = end.y();
     paramValue[1] = start.x();
-    paramValue[3] = start.y();
+    paramValue[3] = -start.y();
 //    this->setEndPoint(end);
 }
 

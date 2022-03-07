@@ -584,83 +584,90 @@ void MainWindow::fieldFileWrite(){
         QDataStream out(&file);
         out.setByteOrder(QDataStream::LittleEndian);
         out << 4000 << 4000;
-        outTXT << 4000 << "\n" <<4000 << "\n";
+        outTXT << tr("MAXK: %1").arg(4000) << "\n" << tr("LENG: %1").arg(4000) << "\n";
         int mesh_number = 1;
-        if((mesh_size - 0.0) > 0.0000000000001){
-            int node_number = 0;
-            foreach(Figure *fig, figureList){
-                node_number += ceil(fig->getLength()/mesh_size);
-                mesh_number *= ceil(fig->getLength()/mesh_size);
-            }
-            out << node_number;
-            outTXT << node_number << "\n";
-        }else{
-            return;
-        }
+//        if((mesh_size - 0.0) > 0.0000000000001){
+//            int node_number = 0;
+//            foreach(Figure *fig, figureList){
+//                node_number += ceil(fig->getLength()/mesh_size);
+//                mesh_number *= ceil(fig->getLength()/mesh_size);
+//            }
+//            out << node_number;
+//            outTXT << node_number << "\n";
+//        }else{
+//            return;
+//        }
+        outTXT << tr("KDIV: %1").arg(sqrt(4000)) << "\n";
+        out << (int)sqrt(4000);
         out << 0;
-        out << 1;
-        outTXT << 0 << "\n";
-        outTXT << 1 << "\n";
+        out << 1.0f;
+        outTXT << tr("KQ: %1").arg(0) << "\n" << tr("OKPE: %1").arg(1.0) << "\n";
         if(stData.geomT == 2){
-            out << 1;
-            outTXT << 1 << "\n";
-        }else{
             out << 0;
-            outTXT << 0 << "\n";
+            outTXT << tr("IPOIS: %1").arg(0) << "\n";
+            out << 0;
+            outTXT << tr("NPOIS: %1").arg(0) << "\n";
+        }else{
+            out << -1;
+            outTXT << tr("IPOIS: %1").arg(-1) << "\n";
+            out << 0;
+            outTXT << tr("NPOIS: %1").arg(1) << "\n";
         }
         out << mesh_number -1;
-        outTXT << mesh_number -1 << "\n";
+        outTXT << tr("NSET: %1").arg(mesh_number -1) << "\n";
         out << 1;
-        outTXT << 1 << "\n";
+        outTXT << tr("LPRIN: %1").arg(1) << "\n";
         out << stData.numb;
-        outTXT << stData.numb << "\n";
+        outTXT << tr("KU: %1").arg(stData.numb) << "\n";
         out << (int)stData.E;
         out << (int)stData.Q;
         out << (int)stData.H;
+        outTXT << tr("KE: %1").arg((int)stData.E) << "\n";
+        outTXT << tr("KR: %1").arg((int)stData.Q) << "\n";
+        outTXT << tr("KB: %1").arg((int)stData.H) << "\n";
         out << 0;
         out << 1;
+        outTXT << tr("KAT: %1").arg(0) << "\n";
+        outTXT << tr("KPE: %1").arg(1) << "\n";
         out << stData.stream;
-        out << (double)coef.len;
-        out << (double)coef.pot;
-        out <<(double)coef.curr;
-        out << (double)coef.mag;
-        out << (double)coef.len*0.000001;
-        out << (double)coef.curr;
+        out << (float)coef.len;
+        out << (float)coef.pot;
+        out <<(float)coef.curr;
+        out << (float)coef.mag;
+        out << (float)coef.len*0.000001;
+        out << (float)coef.curr;
+        outTXT << tr("KS: %1").arg(stData.stream) << "\n";
+        outTXT << tr("UNL: %1").arg((float)coef.len) << "\n";
+        outTXT << tr("UNU: %1").arg((float)coef.pot) << "\n";
+        outTXT << tr("UNI: %1").arg((float)coef.curr) << "\n";
+        outTXT << tr("UNB: %1").arg((float)coef.mag) << "\n";
+        outTXT << tr("UNV: %1").arg((float)coef.len*0.000001) << "\n";
+        outTXT << tr("UNJ: %1").arg((float)coef.curr) << "\n";
         out << 0;
         out << 0;
         out << 0;
         out << 0;
         out << 0;
         out << 0;
-        outTXT << (int)stData.E << "\n";
-        outTXT << (int)stData.Q << "\n";
-        outTXT << (int)stData.H << "\n";
-        outTXT << 0 << "\n";
-        outTXT << 1 << "\n";
-        outTXT << stData.stream << "\n";
-        outTXT << coef.len << "\n";
-        outTXT << coef.pot << "\n";
-        outTXT << coef.curr << "\n";
-        outTXT << coef.mag << "\n";
-        outTXT << coef.len*0.000001 << "\n";
-        outTXT << coef.curr << "\n";
-        outTXT << 0 << "\n";
-        outTXT << 0 << "\n";
-        outTXT << 0 << "\n";
-        outTXT << 0 << "\n";
-        outTXT << 0 << "\n";
-        outTXT << 0 << "\n";
+        out << 0;
+        outTXT << tr("KSPL: %1").arg(0) << "\n";
+        outTXT << tr("IQ: %1").arg(0) << "\n";
+        outTXT << tr("JQ: %1").arg(0) << "\n";
+        outTXT << tr("Q: %1").arg(0) << "\n";
+        outTXT << tr("JL: %1").arg(0) << "\n";
+        outTXT << tr("RLAB: %1").arg(0) << "\n";
+        outTXT << tr("IRET: %1").arg(0) << "\n";
         for(int i = 1; i <= stData.numb; i++){
             double step_iq = (stData.umax - stData.umin)/(stData.numb + 1.0);
-            out << (double)(stData.umin + step_iq*i);
-            outTXT << stData.umin + step_iq*i << "\n";
+            out << (float)(stData.umin + step_iq*i);
+            outTXT << tr("Эквипотенциаль №%1: %2").arg(i).arg(stData.umin + step_iq*i) << "\n";
         }
-        outTXT << true << "\n";
-        outTXT << 0 << "\n";
-        outTXT << (double)stData.step << "\n";
+        outTXT << tr("FLAG: %1").arg(true) << "\n";
+        outTXT << tr("User: %1").arg(0.0f) << "\n";
+        outTXT << tr("Stepl: %1").arg((float)stData.step) << "\n";
         out << true;
         out << 0;
-        out << (double)stData.step;
+        out << (float)stData.step;
     }
     file.close();
     fileTXT.close();
@@ -673,51 +680,53 @@ void MainWindow::fieldFileWrite(){
         QTextStream outTXT(&fileGeoTXT);
         out.setByteOrder(QDataStream::LittleEndian);
         out << (int)figureList.length(); //MS
-        outTXT << (int)figureList.length() << "\n";
+        outTXT << tr("MS: %1").arg((int)figureList.length()) << "\n";
         out << 0; //MX
         out << 0; //MY
         out << stData.geomT; //NDIM
-        outTXT << 0 << "\n";
-        outTXT << 0 << "\n";
-        outTXT << stData.geomT << "\n";
+        outTXT << tr("MX: %1").arg(0) << "\n";;
+        outTXT << tr("MY: %1").arg(0) << "\n";;
+        outTXT << tr("NDIM: %1").arg(stData.geomT) << "\n";;
         out << 0.0; //PR
         out << 0.0; //PZ
         out << (int)figureList.length()*14; //IID
-        outTXT << (float)0.0 << "\n";
-        outTXT << (float)0.0 << "\n";
-        outTXT << (int)figureList.count()*14 << "\n";
+        outTXT << tr("PR: %1").arg(0.0) << "\n";;
+        outTXT << tr("PZ: %1").arg(0.0) << "\n";;
+        outTXT << tr("IID: %1").arg((int)figureList.length()*14) << "\n";;
         out.setFloatingPointPrecision(QDataStream::SinglePrecision);
         for(int i = 0; i < (int)figureList.length(); ++i){
             //NK
-           out << 6;
-           outTXT << 6 << "\n";
+           out << figureList[i]->getDevide()[0];
+           outTXT << tr("NK №%1: %2").arg(i+1).arg(figureList[i]->getDevide()[0]) << "\n";
         }
         for(int i = 0; i < (int)figureList.length(); ++i){
             //NN
-           out << 9;
-           outTXT << 9 << "\n";
+           out << figureList[i]->getDevide()[1];
+           outTXT << tr("NN №%1: %2").arg(i+1).arg(figureList[i]->getDevide()[1]) << "\n";
         }
-        foreach(Figure *fig, figureList){
+        for(int i = 0; i < (int)figureList.length(); ++i){
             //NG
-           out << fig->getBound().type;
-           outTXT << fig->getBound().type << "\n";
+           out << figureList[i]->getBound().type;
+           outTXT << tr("NG №%1: %2").arg(i+1).arg(figureList[i]->getBound().type) << "\n";
         }
         for(int i = 0; i < 4; ++i){
             //Figure coefi [A, B, C, D]
            double* coef;
-           foreach(Figure *fig, figureList){
-                coef = fig->getCoeff();
+           char let = 'A';
+           for(int j = 0; j < (int)figureList.length(); ++j){
+                coef = figureList[j]->getCoeff();
                 out << (float)coef[i];
-                outTXT << coef[i] << "\n";
+                outTXT << tr("%1 №%2: %3").arg(let+i).arg(j).arg((float)coef[i]) << "\n";
            }
         }
         for(int i = 0; i < 2; ++i){
-            //Figure coefi [A, B, C, D]
+            //Figure coefi [AL, BT]
            double* angles;
-           foreach(Figure *fig, figureList){
-                angles = fig->getAngles();
+           QStringList let = {"AL", "BT"};
+           for(int j = 0; j < (int)figureList.length(); ++j){
+                angles = figureList[j]->getAngles();
                 out << (float)angles[i];
-                outTXT << angles[i] << "\n";
+                outTXT << tr("%1 №%2: %3").arg(let[i]).arg(j).arg((float)angles[i]) << "\n";
            }
         }
 //        for(int i = 0; i < (int)figureList.length(); ++i){
@@ -733,32 +742,32 @@ void MainWindow::fieldFileWrite(){
         for(int i = 0; i < (int)figureList.length(); ++i){
             //GN
             out << (float)0.0;
-            outTXT << 0.0 << "\n";
+            outTXT << tr("GN №%1: %2").arg(i+1).arg(0.0f) << "\n";
         }
         for(int i = 0; i < (int)figureList.length(); ++i){
             //GK
             out << (float)0.0;
-            outTXT << 0.0 << "\n";
+            outTXT << tr("GK №%1: %2").arg(i+1).arg(0.0f) << "\n";
         }
-        foreach(Figure *fig, figureList){
+        for(int i = 0; i < (int)figureList.length(); ++i){
             //U1
-            out << (float)fig->getBound().value[0];
-            outTXT << fig->getBound().value[0] << "\n";
+            out << (float)figureList[i]->getBound().value[0];
+            outTXT << tr("U1 №%1: %2").arg(i+1).arg(figureList[i]->getBound().value[0]) << "\n";
         }
-        foreach(Figure *fig, figureList){
+        for(int i = 0; i < (int)figureList.length(); ++i){
             //U2
-            if(fig->getBound().method){
-                out << (float)fig->getBound().value[1];
-                outTXT << fig->getBound().value[1] << "\n";
+            if(figureList[i]->getBound().method){
+                out << (float)figureList[i]->getBound().value[1];
+                outTXT << tr("U2 №%1: %2").arg(i+1).arg(figureList[i]->getBound().value[1]) << "\n";
             }else{
-                out << (float)fig->getBound().value[0];
-                outTXT << fig->getBound().value[0] << "\n";
+                out << (float)figureList[i]->getBound().value[0];
+                outTXT << tr("U2 №%1: %2").arg(i+1).arg(figureList[i]->getBound().value[0]) << "\n";
             }
         }
         for(int i = 0; i < (int)figureList.length(); ++i){
             //INT
            out << 2;
-           outTXT << 2 << "\n";
+           outTXT << tr("INT №%1: %2").arg(i+1).arg(2) << "\n";
         }
 
     }
@@ -855,7 +864,7 @@ void MainWindow::slotTakePic(){
         QPainter imgPainter(&image);
         scene->render(&imgPainter);
         imgPainter.end();
-        QString imgName = picName.mid(0, picName.lastIndexOf(".", 0));
+        QString imgName = picName.mid(0, picName.lastIndexOf("."));
         image.save(imgName + ".png");
     }
 }

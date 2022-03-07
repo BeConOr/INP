@@ -32,6 +32,7 @@ SOURCES += \
     mesh.cpp \
     paintscene.cpp \
     rec_wid.cpp \
+    seqelement.cpp \
     units.cpp \
     view.cpp
 
@@ -58,6 +59,7 @@ HEADERS += \
     mesh.h \
     paintscene.h \
     rec_wid.h \
+    seqelement.h \
     units.h \
     view.h
 
@@ -74,6 +76,7 @@ FORMS += \
     mainwindow.ui \
     mesh.ui \
     rec_wid.ui \
+    seqelement.ui \
     units.ui
 
 # Default rules for deployment.

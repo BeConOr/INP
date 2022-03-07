@@ -31,7 +31,7 @@ Geometry::Geometry(QList<Figure *> list, QWidget *parent) :
 //    ui->graphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);// Отключаем скроллбар по горизонтали
     //ui->graphicsView->setMouseTracking(true);
     ui->treeWidget->header()->hide();
-    scene->setSceneRect(0,0, graphicsView->width(), graphicsView->height());
+    scene->setSceneRect(0, 0, 400, 400);
 //    scene->setSceneRect(QRectF(QPointF(0, 0), QSizeF(scene->width(), scene->height())));
     scene->setTypeFigure(PaintScene::NoneType);
 //    QLineF axis_x;
