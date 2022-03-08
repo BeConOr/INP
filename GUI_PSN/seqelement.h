@@ -22,8 +22,12 @@ private:
     Ui::SeqElement *ui;
 private slots:
     void delBTN();
+
+public slots:
+    void changeName(QString newName);
 signals:
     void deleteSignals();
+    void newNameSignals(QString newName);
 };
 
 #endif // SEQELEMENT_H

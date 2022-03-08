@@ -10,16 +10,24 @@ Mesh::Mesh(MeshCond* mesh, QWidget *parent) :
     cond = mesh;
     ui->doubleSpinBox->setValue(mesh->r[0]);
     for(int i = 1; i < mesh->r.count(); ++i){
-        SeqElement* tempEl = new SeqElement(tr("r"), (SeqCond){mesh->r[i], mesh->rN[i-1]}, ui->RPartLay);
+        tempEl = new SeqElement(tr("r%1").arg(i), (SeqCond){mesh->r[i], mesh->rN[i-1]}, ui->RPartLay);
         connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrR);
+        if(lastElR != NULL){
+            connect(lastElR, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+        }
+        lastElR = tempEl;
         ui->RpartLay->addWidget(tempEl);
         ++rCounter;
         ui->AddR->setEnabled(rCounter < 10);
     }
     ui->doubleSpinBox_2->setValue(mesh->z[0]);
     for(int i = 1; i < mesh->z.count(); ++i){
-        SeqElement* tempEl = new SeqElement(tr("z"), (SeqCond){mesh->z[i], mesh->zN[i-1]}, ui->ZPartLay);
+        tempEl = new SeqElement(tr("z%1").arg(i), (SeqCond){mesh->z[i], mesh->zN[i-1]}, ui->ZPartLay);
         connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrZ);
+        if(lastElZ != NULL){
+            connect(lastElZ, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+        }
+        lastElZ = tempEl;
         ui->ZpartLay->addWidget(tempEl);
         ++zCounter;
         ui->AddZ->setEnabled(zCounter < 10);
@@ -36,15 +44,25 @@ Mesh::~Mesh()
 }
 
 void Mesh::addR(){
-    ui->RpartLay->addWidget(new SeqElement(tr("r"), (SeqCond){0.0, 1}, ui->RPartLay));
     ++rCounter;
+    tempEl = new SeqElement(tr("r%1").arg(rCounter), (SeqCond){0.0, 1}, ui->RPartLay);
+    ui->RpartLay->addWidget(tempEl);
+    if(lastElR != NULL){
+        connect(lastElR, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+    }
+    lastElR = tempEl;
     qDebug() << tr("rCounter: %1").arg(rCounter);
     ui->AddR->setEnabled(rCounter < 10);
 }
 
 void Mesh::addZ(){
-    ui->ZpartLay->addWidget(new SeqElement(tr("z"), (SeqCond){0.0, 1}, ui->ZPartLay));
     ++zCounter;
+    tempEl = new SeqElement(tr("z%1").arg(zCounter), (SeqCond){0.0, 1}, ui->ZPartLay);
+    ui->ZpartLay->addWidget(tempEl);
+    if(lastElZ != NULL){
+        connect(lastElZ, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+    }
+    lastElZ = tempEl;
     qDebug() << tr("zCounter: %1").arg(zCounter);
     ui->AddZ->setEnabled(zCounter < 10);
 }

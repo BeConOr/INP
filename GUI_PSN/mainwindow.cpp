@@ -710,11 +710,11 @@ void MainWindow::fieldFileWrite(){
         for(int i = 0; i < 4; ++i){
             //Figure coefi [A, B, C, D]
            double* coef;
-           char let = 'A';
+           QStringList let = {"A", "B", "C", "D"};
            for(int j = 0; j < (int)figureList.length(); ++j){
                 coef = figureList[j]->getCoeff();
                 out << (float)coef[i];
-                outTXT << tr("%1 №%2: %3").arg(let+i).arg(j).arg((float)coef[i]) << "\n";
+                outTXT << tr("%1 №%2: %3").arg(let[i]).arg(j).arg((float)coef[i]) << "\n";
            }
         }
         for(int i = 0; i < 2; ++i){
@@ -793,12 +793,16 @@ void MainWindow::fieldFileWrite(){
     fileSet.close();
     fileSetTXT.close();
     QFile fileNAM(fileN.mid(0, (fileN.lastIndexOf("/", -1)+1)) + "TASK.NAM");
+    QFile fileNAMTXT(fileN.mid(0, (fileN.lastIndexOf("/", -1)+1)) + "TASKNAM.txt");
     if (fileNAM.open(QFile::WriteOnly)) {
         QDataStream out(&fileNAM);
+        fileNAMTXT.open(QFile::WriteOnly | QFile::Text);
+        QTextStream outTXT(&fileNAMTXT);
         out.setByteOrder(QDataStream::LittleEndian);
         QString substr = "G:\\PS2Test\\DATA\\" + fileN.mid((fileN.lastIndexOf("/", -1)+1));
         int len = substr.length();
-        spaceWr(&out, len);
+        out << len;
+        outTXT << tr("Char numbers: %1").arg(len);
 //        char *int_val = new char[4];
 //        std::sprintf(int_val, "%d", len);
 ////        chWr(&out, int_val, 4);
@@ -806,10 +810,12 @@ void MainWindow::fieldFileWrite(){
         qDebug() << len;
         for(int i = 0; i < len; ++i){
             out << substr[i].toLatin1();
+            outTXT << tr("Char №%1: %2").arg(i+1).arg(substr[i].toLatin1());
             qDebug() << substr[i].toLatin1();
         }
     }
     fileNAM.close();
+    fileNAMTXT.close();
     statusBar()->showMessage(tr("Files created"), 2000);
 }
 

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "Struck.h"
+#include "seqelement.h"
 
 namespace Ui {
 class Mesh;
@@ -21,6 +22,9 @@ private:
     MeshCond* cond;
     int zCounter = 0;
     int rCounter = 0;
+    SeqElement* lastElR = NULL;
+    SeqElement* lastElZ = NULL;
+    SeqElement* tempEl = NULL;
 
 private slots:
     void addR();
