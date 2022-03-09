@@ -71,6 +71,7 @@ private:
 
 protected:
     QPen pen = QPen(Qt::blue, 2);
+    QPen penDot = QPen(Qt::red, 4);
 
     double paramValue[4] = {0.0, 0.0, 0.0, 0.0};
     double angles[2] = {0.0, 1.0};

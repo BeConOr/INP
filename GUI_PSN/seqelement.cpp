@@ -22,12 +22,38 @@ SeqCond SeqElement::giveCond(){
 }
 
 void SeqElement::delBTN(){
-    emit deleteSignals();
-    emit newNameSignals(ui->label->text());
+    if(nextEl != NULL){
+        nextEl->setName(ui->label->text());
+        nextEl->setLastEl(lastEl);
+    }
+    if(lastEl != NULL){
+        lastEl->setNextEl(nextEl);
+    }
+    emit deleteSignals(lastEl);
+//    emit newNameSignals(ui->label->text());
     delete(this);
 }
 
 void SeqElement::changeName(QString newName){
     ui->label->setText(newName);
     emit newNameSignals(tr("%1%2").arg(newName[0]).arg(newName.mid(1).toInt()+1));
+}
+
+void SeqElement::setNextEl(SeqElement* el){
+    nextEl = el;
+}
+
+void SeqElement::setLastEl(SeqElement *el){
+    lastEl = el;
+}
+
+void SeqElement::setName(QString newName){
+    ui->label->setText(newName);
+    if(nextEl != NULL){
+        nextEl->setName(tr("%1%2").arg(newName[0]).arg(newName.mid(1).toInt()+1));
+    }
+}
+
+SeqElement* SeqElement::getNextEl(){
+    return nextEl;
 }

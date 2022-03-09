@@ -11,9 +11,11 @@ Mesh::Mesh(MeshCond* mesh, QWidget *parent) :
     ui->doubleSpinBox->setValue(mesh->r[0]);
     for(int i = 1; i < mesh->r.count(); ++i){
         tempEl = new SeqElement(tr("r%1").arg(i), (SeqCond){mesh->r[i], mesh->rN[i-1]}, ui->RPartLay);
-        connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrR);
+        qDebug() << connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrR);
         if(lastElR != NULL){
-            connect(lastElR, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+//            connect(lastElR, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+            lastElR->setNextEl(tempEl);
+            tempEl->setLastEl(lastElR);
         }
         lastElR = tempEl;
         ui->RpartLay->addWidget(tempEl);
@@ -23,9 +25,11 @@ Mesh::Mesh(MeshCond* mesh, QWidget *parent) :
     ui->doubleSpinBox_2->setValue(mesh->z[0]);
     for(int i = 1; i < mesh->z.count(); ++i){
         tempEl = new SeqElement(tr("z%1").arg(i), (SeqCond){mesh->z[i], mesh->zN[i-1]}, ui->ZPartLay);
-        connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrZ);
+        qDebug() << connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrZ);
         if(lastElZ != NULL){
-            connect(lastElZ, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+//            connect(lastElZ, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+            lastElZ->setNextEl(tempEl);
+            tempEl->setLastEl(lastElZ);
         }
         lastElZ = tempEl;
         ui->ZpartLay->addWidget(tempEl);
@@ -46,9 +50,12 @@ Mesh::~Mesh()
 void Mesh::addR(){
     ++rCounter;
     tempEl = new SeqElement(tr("r%1").arg(rCounter), (SeqCond){0.0, 1}, ui->RPartLay);
+    qDebug() << connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrR);
     ui->RpartLay->addWidget(tempEl);
     if(lastElR != NULL){
-        connect(lastElR, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+//        connect(lastElR, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+        lastElR->setNextEl(tempEl);
+        tempEl->setLastEl(lastElR);
     }
     lastElR = tempEl;
     qDebug() << tr("rCounter: %1").arg(rCounter);
@@ -58,9 +65,12 @@ void Mesh::addR(){
 void Mesh::addZ(){
     ++zCounter;
     tempEl = new SeqElement(tr("z%1").arg(zCounter), (SeqCond){0.0, 1}, ui->ZPartLay);
+    qDebug() << connect(tempEl, &SeqElement::deleteSignals, this, &Mesh::incrZ);
     ui->ZpartLay->addWidget(tempEl);
     if(lastElZ != NULL){
-        connect(lastElZ, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+//        connect(lastElZ, &SeqElement::newNameSignals, tempEl, &SeqElement::changeName);
+        lastElZ->setNextEl(tempEl);
+        tempEl->setLastEl(lastElZ);
     }
     lastElZ = tempEl;
     qDebug() << tr("zCounter: %1").arg(zCounter);
@@ -92,14 +102,28 @@ void Mesh::OKslot(){
     }
 }
 
-void Mesh::incrZ(){
+void Mesh::incrZ(SeqElement* el){
     --zCounter;
     ui->AddZ->setEnabled(zCounter < 10);
+    if(el != NULL){
+        if(el->getNextEl() == NULL){
+            lastElZ = el;
+        }
+    }else{
+        lastElZ = NULL;
+    }
     qDebug() << tr("zCounter: %1").arg(zCounter);
 }
 
-void Mesh::incrR(){
+void Mesh::incrR(SeqElement* el){
     --rCounter;
     ui->AddR->setEnabled(rCounter < 10);
+    if(el != NULL){
+        if(el->getNextEl() == NULL){
+            lastElR = el;
+        }
+    }else{
+        lastElR = NULL;
+    }
     qDebug() << tr("rCounter: %1").arg(rCounter);
 }

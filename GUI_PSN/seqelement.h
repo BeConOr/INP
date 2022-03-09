@@ -16,17 +16,23 @@ public:
     explicit SeqElement(QString name, SeqCond curr, QWidget *parent = nullptr);
     ~SeqElement();
     SeqCond giveCond();
+    void setNextEl(SeqElement* el);
+    void setLastEl(SeqElement* el);
+    void setName(QString newName);
+    SeqElement* getNextEl();
 
 
 private:
     Ui::SeqElement *ui;
-private slots:
-    void delBTN();
+    SeqElement *nextEl = NULL;
+    SeqElement *lastEl = NULL;
+
 
 public slots:
     void changeName(QString newName);
+    void delBTN();
 signals:
-    void deleteSignals();
+    void deleteSignals(SeqElement* el);
     void newNameSignals(QString newName);
 };
 

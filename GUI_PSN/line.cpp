@@ -23,6 +23,16 @@ void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
     painter->drawLine(line);
 
+    for(int i = 1; i < devide[0] + 1; ++i){
+//        QLineF unit = line.unitVector();
+//        double ky = endPoint().y() - startPoint().y();
+//        double kx = endPoint().x() - startPoint().x();
+//        double y = startPoint().y() + ky*(double)i/(devide[0]+1.0);
+//        double x = startPoint().x() + kx*(double)i/((double)(devide[0]+1));
+        painter->setPen(penDot);
+        painter->drawPoint(line.pointAt((double)i/((double)(devide[0] + 1))));
+    }
+
     Q_UNUSED(option)
     Q_UNUSED(widget)
 }

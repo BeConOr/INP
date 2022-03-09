@@ -17,6 +17,8 @@ Figure::Figure(QPointF point) : QGraphicsObject()
         condition = {0, false, {0.0, 0.0}};
 
         pen.setCosmetic(true);
+        penDot.setCosmetic(true);
+        penDot.setCapStyle(Qt::RoundCap);
 }
 
 Figure::~Figure(){

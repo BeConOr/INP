@@ -17,6 +17,10 @@ public:
     explicit Mesh(MeshCond* mesh, QWidget *parent = nullptr);
     ~Mesh();
 
+public slots:
+    void incrZ(SeqElement* el);
+    void incrR(SeqElement* el);
+
 private:
     Ui::Mesh *ui;
     MeshCond* cond;
@@ -30,10 +34,6 @@ private slots:
     void addR();
     void addZ();
     void OKslot();
-
-public slots:
-    void incrZ();
-    void incrR();
 };
 
 #endif // MESH_H
