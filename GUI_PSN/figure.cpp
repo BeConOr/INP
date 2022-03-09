@@ -142,4 +142,5 @@ int* Figure::getDevide(){
 void Figure::setDevide(int div, int kvadr){
     devide[0] = div;
     devide[1] = kvadr;
+    this->updateRomb();
 }

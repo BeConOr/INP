@@ -1,5 +1,6 @@
 #include "circle.h"
 #include <QPainter>
+#include <math.h>
 
 Circle::Circle(QPointF point): Figure(point)
 {
@@ -23,10 +24,24 @@ void Circle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     qreal x = endPoint().x()-startPoint().x();
     qreal y = endPoint().y()-startPoint().y();
     qreal radius = qSqrt(x*x+y*y);
+    QVector<qreal> dashes;
+    double step = (2.0*M_PI*radius/((double)devide[0])) - 0.5;
+    dashes << 0.5 << step/4.0;
+    qDebug() << tr("Length: %1, step: %2").arg(2*M_PI*radius).arg(2.0*M_PI*radius/((double)devide[0]));
+    penDot.setDashPattern(dashes);
 
 //    painter->drawEllipse(QPointF(cent_x, cent_y), radius, radius);
     painter->drawEllipse(QPointF(startPoint().x(), startPoint().y()), radius, radius);
+    painter->setPen(penDot);
+    painter->drawEllipse(QPointF(startPoint().x(), startPoint().y()), radius, radius);
 
+//    for(int i = 1; i <= devide[0]; ++i){
+//        double step = 2.0*M_PI/((double)devide[0]);
+//        double y = startPoint().y() - radius*sin(step*(double)i);
+//        double x = startPoint().x() + radius*cos(step*(double)i);;
+//        painter->setPen(penDot);
+//        painter->drawPoint(x, y);
+//    }
 
     Q_UNUSED(option)
     Q_UNUSED(widget)

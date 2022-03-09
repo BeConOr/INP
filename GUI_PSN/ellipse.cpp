@@ -22,8 +22,15 @@ void Ellips::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 //    qreal radius = qSqrt(x*x+y*y);
     qreal x = endPoint().x()-startPoint().x();
     qreal y = endPoint().y()-startPoint().y();
+    QVector<qreal> dashes;
+    double step = ((M_PI*(qAbs(x)+qAbs(y)))/((double)devide[0])) - 0.5;
+    dashes << 0.5 << step/4.0;
+    qDebug() << tr("Length: %1, step: %2").arg(M_PI*(qAbs(x)+qAbs(y))).arg((M_PI*(qAbs(x)+qAbs(y)))/((double)devide[0]));
+    penDot.setDashPattern(dashes);
 
 //    painter->drawEllipse(QPointF(cent_x, cent_y), radius, radius);
+    painter->drawEllipse(QPointF(startPoint().x(), startPoint().y()), x, y);
+    painter->setPen(penDot);
     painter->drawEllipse(QPointF(startPoint().x(), startPoint().y()), x, y);
 
 

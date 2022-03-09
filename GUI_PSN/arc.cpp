@@ -29,9 +29,17 @@ void Arc::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
     endAngle = startAngle + 30.0;
     }
 
+    QVector<qreal> dashes;
+    double step = (2.0*M_PI*radius*(qAbs(endAngle-startAngle)/360.0)/((double)(devide[0]+1))) - 0.5;
+    dashes << 0.5 << step/4.0;
+    qDebug() << tr("Length: %1, step: %2").arg(2*M_PI*radius).arg(2.0*M_PI*radius/((double)devide[0]));
+    penDot.setDashPattern(dashes);
+
 //    painter->drawEllipse(QPointF(cent_x, cent_y), radius, radius);
     QRectF r1 = QRectF (startPoint().x()-radius, startPoint().y()-radius, 2.0*radius, 2.0*radius);
     painter->drawArc(r1, startAngle*16.0, (endAngle - startAngle)*16.0);
+    painter->setPen(penDot);
+    painter->drawArc(r1, (startAngle-1.0+((endAngle - startAngle)/(double)devide[0]))*16.0, (endAngle - startAngle)*16.0);
 
 
     Q_UNUSED(option)
