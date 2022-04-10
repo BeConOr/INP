@@ -799,10 +799,10 @@ void MainWindow::fieldFileWrite(){
         fileNAMTXT.open(QFile::WriteOnly | QFile::Text);
         QTextStream outTXT(&fileNAMTXT);
         out.setByteOrder(QDataStream::LittleEndian);
-        QString substr = "G:\\PS2Test\\DATA\\" + fileN.mid((fileN.lastIndexOf("/", -1)+1));
+        QString substr = "SRC\\" + fileN.mid((fileN.lastIndexOf("/", -1)+1));
         int len = substr.length();
         out << len;
-        outTXT << tr("Char numbers: %1").arg(len);
+        outTXT << tr("Char numbers: %1\n").arg(len);
 //        char *int_val = new char[4];
 //        std::sprintf(int_val, "%d", len);
 ////        chWr(&out, int_val, 4);
@@ -810,7 +810,7 @@ void MainWindow::fieldFileWrite(){
         qDebug() << len;
         for(int i = 0; i < len; ++i){
             out << substr[i].toLatin1();
-            outTXT << tr("Char №%1: %2").arg(i+1).arg(substr[i].toLatin1());
+            outTXT << tr("Char №%1: %2\n").arg(i+1).arg(substr[i].toLatin1());
             qDebug() << substr[i].toLatin1();
         }
     }
